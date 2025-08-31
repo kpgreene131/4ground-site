@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Shows - 4ground"
+  description="Upcoming live performances and event information"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-16">
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6">Live Shows</h1>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+        Upcoming performances and live electronic music experiences
+      </p>
+    </div>
+
+    <div class="space-y-8">
+      <div class="bg-gray-800 rounded-lg p-8 border-l-4 border-blue-500">
+        <div class="flex flex-col md:flex-row md:items-center justify-between">
+          <div>
+            <h2 class="text-xl font-semibold text-white mb-2">Spring Tour 2025</h2>
+            <p class="text-gray-300 mb-4">Details coming soon...</p>
+            <div class="text-sm text-gray-400">
+              <span>TBD • Various Venues</span>
+            </div>
+          </div>
+          <div class="mt-4 md:mt-0">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+              Announced Soon
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center py-16">
+        <div class="text-gray-400 mb-6">
+          <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-semibold text-white mb-4">More Shows Coming</h2>
+        <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
+          Stay tuned for announcements about upcoming live performances, DJ sets, and special events. 
+          Each show features interactive elements and immersive audio experiences.
+        </p>
+        <a 
+          href="/contact" 
+          class="inline-flex items-center px-6 py-3 border-2 border-gray-600 text-gray-300 font-medium rounded-lg hover:border-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-950"
+        >
+          Get Notified
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-gray-800 rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-white mb-3">Booking Info</h3>
+          <p class="text-gray-300 text-sm mb-4">
+            Interested in booking 4ground for your event? Get in touch for availability and technical requirements.
+          </p>
+          <a 
+            href="/contact" 
+            class="text-blue-400 hover:text-blue-300 font-medium text-sm"
+          >
+            Contact for Booking →
+          </a>
+        </div>
+        
+        <div class="bg-gray-800 rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-white mb-3">Tech Specs</h3>
+          <p class="text-gray-300 text-sm mb-4">
+            Live performances feature custom audio-visual setups with real-time stem manipulation and interactive visuals.
+          </p>
+          <a 
+            href="/labs" 
+            class="text-blue-400 hover:text-blue-300 font-medium text-sm"
+          >
+            Explore the Tech →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

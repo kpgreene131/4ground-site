@@ -1,0 +1,53 @@
+{
+  "title": "Midnight Synthesis",
+  "slug": "midnight-synthesis",
+  "releaseDate": "2024-12-15",
+  "bpm": 128,
+  "key": "Am",
+  "duration": "4:03",
+  "description": "Deep electronic synthesis meets intricate rhythmic patterns in this immersive journey through late-night sonic landscapes.",
+  "coverUrl": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=800&fit=crop&crop=center",
+  "platformLinks": [
+    {
+      "platform": "Bandcamp",
+      "url": "https://4ground.bandcamp.com/track/midnight-synthesis"
+    },
+    {
+      "platform": "Spotify",
+      "url": "https://open.spotify.com/track/example"
+    },
+    {
+      "platform": "Apple Music",
+      "url": "https://music.apple.com/track/example"
+    },
+    {
+      "platform": "SoundCloud",
+      "url": "https://soundcloud.com/4ground/midnight-synthesis"
+    }
+  ],
+  "stems": [
+    {
+      "name": "Kick & Bass",
+      "file": "/audio/midnight-synthesis/stem-1-kick-bass.wav"
+    },
+    {
+      "name": "Percussion",
+      "file": "/audio/midnight-synthesis/stem-2-percussion.wav"
+    },
+    {
+      "name": "Synths",
+      "file": "/audio/midnight-synthesis/stem-3-synths.wav"
+    },
+    {
+      "name": "FX & Vocals",
+      "file": "/audio/midnight-synthesis/stem-4-fx-vocals.wav"
+    }
+  ],
+  "mixedTrack": "/audio/midnight-synthesis/mixed.wav",
+  "tags": ["electronic", "synthwave", "ambient", "experimental"],
+  "credits": {
+    "producer": "4ground",
+    "mastering": "4ground",
+    "artwork": "AI Generated"
+  }
+}

@@ -1,0 +1,79 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = '4ground',
+  description = 'Electronic music producer and sound designer',
+  image = '/og-default.jpg',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:type" content="website" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body class="bg-gray-950 text-gray-100 font-sans">
+    <header class="border-b border-gray-800">
+      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex items-center">
+            <a href="/" class="text-xl font-bold text-white hover:text-gray-300 transition-colors">
+              4ground
+            </a>
+          </div>
+          
+          <div class="hidden sm:flex items-center space-x-8">
+            <a href="/releases" class="text-gray-300 hover:text-white transition-colors">Releases</a>
+            <a href="/labs" class="text-gray-300 hover:text-white transition-colors">Labs</a>
+            <a href="/shows" class="text-gray-300 hover:text-white transition-colors">Shows</a>
+            <a href="/contact" class="text-gray-300 hover:text-white transition-colors">Contact</a>
+          </div>
+          
+          <div class="sm:hidden flex items-center">
+            <button type="button" class="text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-label="Main menu">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="border-t border-gray-800 mt-20">
+      <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="text-center text-gray-400">
+          <p>&copy; 2025 4ground. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

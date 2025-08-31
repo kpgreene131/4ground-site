@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StemVisualizerPlaceholder from '../../components/StemVisualizerPlaceholder.tsx';
+import sampleRelease from '../../content/releases/sample.json';
+
+export function getStaticPaths() {
+  return [
+    {
+      params: { slug: 'midnight-synthesis' },
+      props: { release: sampleRelease }
+    }
+  ];
+}
+
+const { release } = Astro.props;
+---
+
+<BaseLayout
+  title={`${release.title} - 4ground`}
+  description={`Listen to ${release.title} by 4ground. Interactive stem player with EQ and effects.`}
+  image={release.coverUrl}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+      <div class="order-2 lg:order-1">
+        <div class="flex items-start space-x-4 mb-6">
+          <div class="text-sm text-gray-400 space-y-1">
+            <div class="flex items-center">
+              <span class="w-16 text-gray-500">Released:</span>
+              <span>{release.releaseDate}</span>
+            </div>
+            <div class="flex items-center">
+              <span class="w-16 text-gray-500">BPM:</span>
+              <span>{release.bpm}</span>
+            </div>
+            <div class="flex items-center">
+              <span class="w-16 text-gray-500">Key:</span>
+              <span>{release.key}</span>
+            </div>
+            <div class="flex items-center">
+              <span class="w-16 text-gray-500">Duration:</span>
+              <span>{release.duration}</span>
+            </div>
+          </div>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4">
+          {release.title}
+        </h1>
+        
+        <p class="text-xl text-gray-300 mb-8">
+          {release.description}
+        </p>
+
+        <div class="flex flex-wrap gap-4 mb-8">
+          {release.platformLinks.map(link => (
+            <a 
+              href={link.url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="inline-flex items-center px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-950"
+            >
+              {link.platform}
+            </a>
+          ))}
+        </div>
+
+        <div class="prose prose-invert max-w-none">
+          <h2>About This Track</h2>
+          <p>
+            {release.title} showcases the evolution of 4ground's signature sound, blending deep synthesis 
+            with intricate rhythmic patterns. The track features layered stems that can be explored 
+            individually using the interactive player.
+          </p>
+          
+          <h3>Production Notes</h3>
+          <ul>
+            <li>All synthesis programmed using modular systems</li>
+            <li>Recorded in 24-bit/96kHz for maximum fidelity</li>
+            <li>Stems separated for interactive mixing experience</li>
+            <li>Optimized for both headphone and club sound systems</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="order-1 lg:order-2">
+        <div class="sticky top-8">
+          <img 
+            src={release.coverUrl} 
+            alt={`${release.title} cover art`}
+            class="w-full rounded-lg shadow-2xl mb-8"
+          />
+          
+          <div class="bg-gray-800 rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-white mb-4">Interactive Stem Player</h3>
+            <StemVisualizerPlaceholder 
+              trackTitle={release.title}
+              stemCount={4}
+              bpm={release.bpm}
+              client:load 
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-800 pt-16">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-white mb-4">More Releases</h2>
+        <p class="text-gray-300">Explore the complete 4ground catalog</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-gray-800 rounded-lg p-6 opacity-50">
+          <div class="aspect-square bg-gray-700 rounded-lg mb-4"></div>
+          <h3 class="text-lg font-medium text-white mb-2">Coming Soon</h3>
+          <p class="text-gray-400 text-sm">New releases announcement</p>
+        </div>
+        <div class="bg-gray-800 rounded-lg p-6 opacity-50">
+          <div class="aspect-square bg-gray-700 rounded-lg mb-4"></div>
+          <h3 class="text-lg font-medium text-white mb-2">Coming Soon</h3>
+          <p class="text-gray-400 text-sm">New releases announcement</p>
+        </div>
+        <div class="bg-gray-800 rounded-lg p-6 opacity-50">
+          <div class="aspect-square bg-gray-700 rounded-lg mb-4"></div>
+          <h3 class="text-lg font-medium text-white mb-2">Coming Soon</h3>
+          <p class="text-gray-400 text-sm">New releases announcement</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
