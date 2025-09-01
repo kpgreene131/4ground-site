@@ -1,0 +1,71 @@
+---
+import { generateOpenGraphTags } from '../../lib/og/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  imageUrl: string;
+  url?: string;
+  type?: string;
+  siteName?: string;
+  twitterHandle?: string;
+}
+
+const {
+  title,
+  description,
+  imageUrl,
+  url = Astro.url.href,
+  type = 'website',
+  siteName = '4ground',
+  twitterHandle = '@4ground'
+} = Astro.props;
+
+// Generate all the required meta tags
+const ogTags = generateOpenGraphTags({
+  title,
+  description,
+  imageUrl,
+  url,
+  type,
+  siteName,
+  twitterHandle
+});
+---
+
+<!-- Enhanced Open Graph Meta Tags (these will override the defaults in BaseLayout) -->
+{Object.entries(ogTags).map(([property, content]) => {
+  if (property.startsWith('og:')) {
+    return <meta property={property} content={content} />;
+  } else if (property.startsWith('twitter:')) {
+    return <meta name={property} content={content} />;
+  } else {
+    return <meta name={property} content={content} />;
+  }
+})}
+
+<!-- Preload the OG image for faster sharing -->
+<link rel="preload" as="image" href={imageUrl} />
+
+<!-- JSON-LD Structured Data for better SEO -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": type === 'article' ? 'Article' : 'WebPage',
+  "name": title,
+  "description": description,
+  "image": imageUrl,
+  "url": url,
+  "publisher": {
+    "@type": "Organization",
+    "name": siteName,
+    "url": "https://4ground.site"
+  }
+})} />
+
+<style>
+/* Ensure meta tags don't interfere with layout */
+meta[property^="og:"],
+meta[name^="twitter:"] {
+  display: none;
+}
+</style>

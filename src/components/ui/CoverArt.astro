@@ -1,0 +1,172 @@
+---
+import ResponsiveImage from './ResponsiveImage.astro';
+import { generateCoverArtPlaceholder } from '../../lib/utils/placeholders';
+import type { SanityImage } from '../../lib/sanity/api';
+
+interface Props {
+  image: SanityImage | string;
+  title: string;
+  size?: 'small' | 'medium' | 'large' | 'hero';
+  loading?: 'lazy' | 'eager';
+  class?: string;
+  style?: string;
+  showBorder?: boolean;
+  showShadow?: boolean;
+}
+
+const {
+  image,
+  title,
+  size = 'medium',
+  loading = 'lazy',
+  class: className = '',
+  style = '',
+  showBorder = false,
+  showShadow = true
+} = Astro.props;
+
+// Size configurations
+const sizeConfig = {
+  small: {
+    mobile: 150,
+    tablet: 200,
+    desktop: 250,
+    large: 300,
+    aspectRatio: '1/1'
+  },
+  medium: {
+    mobile: 250,
+    tablet: 350,
+    desktop: 400,
+    large: 500,
+    aspectRatio: '1/1'
+  },
+  large: {
+    mobile: 350,
+    tablet: 500,
+    desktop: 600,
+    large: 800,
+    aspectRatio: '1/1'
+  },
+  hero: {
+    mobile: 400,
+    tablet: 600,
+    desktop: 800,
+    large: 1000,
+    aspectRatio: '1/1'
+  }
+};
+
+const config = sizeConfig[size];
+const alt = `${title} cover art`;
+
+// Generate appropriate fallback for cover art
+const fallbackUrl = generateCoverArtPlaceholder(config.large);
+
+// Generate dynamic styles
+const coverStyles = `
+  ${style}
+  ${showBorder ? 'border: 2px solid var(--border-primary);' : ''}
+  ${showShadow ? 'box-shadow: var(--shadow-2xl);' : ''}
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+`;
+---
+
+<div class={`cover-art cover-art-${size} ${className}`} style={coverStyles}>
+  <ResponsiveImage
+    image={image}
+    alt={alt}
+    aspectRatio={config.aspectRatio}
+    objectFit="cover"
+    quality={85}
+    loading={loading}
+    mobile={config.mobile}
+    tablet={config.tablet}
+    desktop={config.desktop}
+    large={config.large}
+    fallbackUrl={fallbackUrl}
+  />
+</div>
+
+<style>
+.cover-art {
+  position: relative;
+  display: block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cover-art:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-3xl);
+}
+
+.cover-art-small {
+  max-width: 300px;
+}
+
+.cover-art-medium {
+  max-width: 500px;
+}
+
+.cover-art-large {
+  max-width: 800px;
+}
+
+.cover-art-hero {
+  max-width: 1000px;
+}
+
+/* Loading state */
+.cover-art::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-tertiary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cover-art.loading::before {
+  opacity: 1;
+}
+
+/* Vinyl record effect (optional enhancement) */
+.cover-art::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  height: 30%;
+  background: radial-gradient(
+    circle,
+    transparent 20%,
+    rgba(0, 0, 0, 0.1) 25%,
+    transparent 30%
+  );
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cover-art:hover::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover-art,
+  .cover-art:hover {
+    transform: none;
+    transition: none;
+  }
+}
+</style>

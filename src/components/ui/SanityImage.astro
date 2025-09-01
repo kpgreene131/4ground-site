@@ -1,0 +1,108 @@
+---
+import { getOptimizedImageUrl, getResponsiveImageUrls, getLqipUrl } from '../../lib/sanity/client';
+import { generatePlaceholderSvg } from '../../lib/utils/placeholders';
+import type { SanityImage } from '../../lib/sanity/api';
+
+interface Props {
+  image: SanityImage;
+  width?: number;
+  height?: number;
+  quality?: number;
+  format?: 'webp' | 'jpg' | 'png' | 'auto';
+  fit?: 'clip' | 'crop' | 'fill' | 'fillmax' | 'max' | 'scale' | 'min';
+  crop?: 'top' | 'bottom' | 'left' | 'right' | 'center' | 'focalpoint';
+  responsive?: boolean;
+  sizes?: number[];
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+  class?: string;
+  style?: string;
+  fallbackUrl?: string;
+}
+
+const {
+  image,
+  width,
+  height,
+  quality = 80,
+  format = 'auto',
+  fit = 'crop',
+  crop = 'center',
+  responsive = false,
+  sizes = [400, 800, 1200, 1600],
+  loading = 'lazy',
+  decoding = 'async',
+  class: className = '',
+  style = '',
+  fallbackUrl = '/images/placeholder.jpg'
+} = Astro.props;
+
+// Generate image URLs
+const imageOptions = { quality, format, fit, crop, width, height };
+
+let src = '';
+let srcset = '';
+let sizesAttr = '';
+let lqip = '';
+
+if (image?.asset) {
+  if (responsive) {
+    const responsiveUrls = getResponsiveImageUrls(image, sizes, imageOptions);
+    src = responsiveUrls.src;
+    srcset = responsiveUrls.srcset;
+    sizesAttr = responsiveUrls.sizes;
+  } else {
+    src = getOptimizedImageUrl(image, imageOptions);
+  }
+  
+  // Generate LQIP for better loading experience
+  lqip = getLqipUrl(image);
+}
+
+// Fallback to placeholder if no image or Sanity not configured
+if (!src) {
+  // Generate a dynamic placeholder if no fallback URL provided
+  if (fallbackUrl === '/images/placeholder.jpg') {
+    src = generatePlaceholderSvg(width || 800, height || 600, 'No Image');
+  } else {
+    src = fallbackUrl;
+  }
+}
+
+// Alt text handling
+const alt = image?.alt || '';
+---
+
+<img
+  src={src}
+  srcset={srcset}
+  sizes={sizesAttr}
+  alt={alt}
+  width={width}
+  height={height}
+  loading={loading}
+  decoding={decoding}
+  class={`sanity-image ${className}`}
+  style={`${lqip ? `background-image: url(${lqip}); background-size: cover; background-position: center;` : ''} ${style}`}
+  data-lqip={lqip}
+/>
+
+<style>
+.sanity-image {
+  transition: opacity 0.3s ease;
+}
+
+.sanity-image[data-lqip]:not([src=""]) {
+  background-repeat: no-repeat;
+}
+
+/* Optional: Blur-to-focus effect */
+.sanity-image.blur-load {
+  filter: blur(5px);
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.sanity-image.blur-load.loaded {
+  filter: blur(0);
+}
+</style>

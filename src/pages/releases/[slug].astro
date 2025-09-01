@@ -1,25 +1,50 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import StemVisualizerPlaceholder from '../../components/StemVisualizerPlaceholder.tsx';
-import sampleRelease from '../../content/releases/sample.json';
+import CoverArt from '../../components/ui/CoverArt.astro';
+import OGImageMeta from '../../components/seo/OGImageMeta.astro';
+import { getAllReleases, getReleaseBySlug, urlFor } from '../../lib/sanity';
+import { getReleaseOGImageUrl } from '../../lib/og/utils';
+import type { Release } from '../../lib/sanity/api';
 
-export function getStaticPaths() {
-  return [
-    {
-      params: { slug: 'midnight-synthesis' },
-      props: { release: sampleRelease }
-    }
-  ];
+export async function getStaticPaths() {
+  try {
+    const releases = await getAllReleases();
+    
+    return releases.map((release: Release) => ({
+      params: { slug: release.slug.current },
+      props: { release }
+    }));
+  } catch (error) {
+    console.error('Error generating static paths:', error);
+    // Fallback to empty array if Sanity fails
+    return [];
+  }
 }
 
-const { release } = Astro.props;
+const { release } = Astro.props as { release: Release };
+
+// Get optimized image URL
+const coverImageUrl = urlFor(release.coverImage);
+
+// Generate dynamic OG image URL
+const ogImageUrl = getReleaseOGImageUrl(release.slug.current);
 ---
 
 <BaseLayout
   title={`${release.title} - 4ground`}
   description={`Listen to ${release.title} by 4ground. Interactive stem player with EQ and effects.`}
-  image={release.coverUrl}
+  image={ogImageUrl}
 >
+  <!-- Enhanced OG Meta Tags -->
+  <OGImageMeta 
+    slot="head"
+    title={`${release.title} - 4ground`}
+    description={`Listen to ${release.title} by 4ground. Interactive stem player with EQ and effects. ${release.description || ''}`}
+    imageUrl={ogImageUrl}
+    type="music.song"
+  />
+  
   <!-- Header Section -->
   <section class="section">
     <div class="container">
@@ -99,13 +124,15 @@ const { release } = Astro.props;
         <!-- Cover Art & Player -->
         <div>
           <div class="sticky-content" style="position: sticky; top: var(--space-xl);">
-            <img 
-              src={release.coverUrl} 
-              alt={`${release.title} cover art`}
-              style="width: 100%; border-radius: var(--radius-lg); margin-bottom: var(--space-xl); box-shadow: var(--shadow-2xl);"
-              loading="eager"
-              decoding="async"
-            />
+            <div style="margin-bottom: var(--space-xl);">
+              <CoverArt 
+                image={release.coverImage}
+                title={release.title}
+                size="large"
+                loading="eager"
+                showShadow={true}
+              />
+            </div>
             
             <div class="card card-featured">
               <h3 class="text-h4 mb-lg" style="color: var(--primary);">Interactive Stem Player</h3>

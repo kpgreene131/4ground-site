@@ -1,0 +1,9 @@
+# Placeholder images directory
+
+This directory contains fallback images for when Sanity images are not available.
+
+Add the following placeholder images:
+- default-cover.jpg (1:1 aspect ratio, ~800x800px)
+- placeholder.jpg (generic placeholder)
+- default-flyer.jpg (event flyer placeholder)
+- default-thumbnail.jpg (lab piece thumbnail placeholder)

@@ -1,5 +1,11 @@
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
 # build output
 dist/
+
 # generated types
 .astro/
 
@@ -22,3 +28,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Sanity / tools
+.sanity/
+.claude/
+.playwright-mcp/
+

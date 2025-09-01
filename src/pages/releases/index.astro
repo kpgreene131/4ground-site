@@ -1,15 +1,15 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import CoverArt from '../../components/ui/CoverArt.astro';
+import { getAllReleases, urlFor } from '../../lib/sanity';
+import type { Release } from '../../lib/sanity/api';
 
-// Get all releases - this will work with the auto-generated collection
-let releases;
+// Get all releases from Sanity
+let releases: Release[] = [];
 try {
-  releases = await getCollection('releases');
-  // Sort by release date (newest first)
-  releases = releases.sort((a, b) => new Date(b.data.releaseDate).getTime() - new Date(a.data.releaseDate).getTime());
+  releases = await getAllReleases();
 } catch (error) {
-  // Fallback if collection doesn't exist yet
+  console.error('Error fetching releases:', error);
   releases = [];
 }
 ---
@@ -35,70 +35,73 @@ try {
     <div class="container">
       {releases.length > 0 ? (
         <div class="grid grid-cols-1" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: var(--space-xl);">
-          {releases.map((release) => (
-            <article class="card">
-              <div class="flex gap-lg">
-                <!-- Cover Art -->
-                <div style="flex-shrink: 0;">
-                  <img 
-                    src={release.data.coverUrl} 
-                    alt={`${release.data.title} cover art`}
-                    style="width: 120px; height: 120px; border-radius: var(--radius-md); object-fit: cover;"
-                    loading="lazy"
-                    decoding="async"
-                    width="120"
-                    height="120"
-                  />
-                </div>
-                
-                <!-- Release Info -->
-                <div style="flex: 1; min-width: 0;">
-                  <h2 class="text-h3 mb-sm" style="color: var(--primary);">
-                    <a 
-                      href={`/releases/${release.data.slug}`} 
-                      style="text-decoration: none; color: inherit;"
-                      class="hover-link"
-                    >
-                      {release.data.title}
-                    </a>
-                  </h2>
-                  
-                  <!-- Metadata -->
-                  <div class="flex gap-md mb-sm" style="flex-wrap: wrap; font-size: var(--text-small); color: var(--text-tertiary);">
-                    <span>{new Date(release.data.releaseDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-                    <span>•</span>
-                    <span>{release.data.bpm} BPM</span>
-                    <span>•</span>
-                    <span>{release.data.key}</span>
-                    <span>•</span>
-                    <span>{release.data.duration}</span>
+          {releases.map((release) => {
+            return (
+              <article class="card">
+                <div class="flex gap-lg">
+                  <!-- Cover Art -->
+                  <div style="flex-shrink: 0; width: 120px;">
+                    <CoverArt 
+                      image={release.coverImage}
+                      title={release.title}
+                      size="small"
+                      loading="lazy"
+                      showShadow={false}
+                      style="width: 120px; height: 120px;"
+                    />
                   </div>
                   
-                  <!-- Description -->
-                  <p style="color: var(--text-secondary); margin-bottom: var(--space-md); font-size: var(--text-small); line-height: var(--leading-relaxed);">
-                    {release.data.description}
-                  </p>
-                  
-                  <!-- Action Buttons -->
-                  <div class="flex gap-sm" style="flex-wrap: wrap;">
-                    <a href={`/releases/${release.data.slug}`} class="btn btn-primary btn-sm">
-                      Listen & Mix
-                    </a>
-                    {release.data.platformLinks.slice(0, 2).map((link) => (
+                  <!-- Release Info -->
+                  <div style="flex: 1; min-width: 0;">
+                    <h2 class="text-h3 mb-sm" style="color: var(--primary);">
                       <a 
-                        href={link.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        class="btn btn-secondary btn-sm"
+                        href={`/releases/${release.slug.current}`} 
+                        style="text-decoration: none; color: inherit;"
+                        class="hover-link"
                       >
-                        {link.platform}
+                        {release.title}
                       </a>
-                    ))}
+                    </h2>
+                    
+                    <!-- Metadata -->
+                    <div class="flex gap-md mb-sm" style="flex-wrap: wrap; font-size: var(--text-small); color: var(--text-tertiary);">
+                      <span>{new Date(release.releaseDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                      <span>•</span>
+                      <span>{release.bpm} BPM</span>
+                      <span>•</span>
+                      <span>{release.key}</span>
+                      <span>•</span>
+                      <span>{release.duration}</span>
+                    </div>
+                    
+                    <!-- Description -->
+                    {release.description && (
+                      <p style="color: var(--text-secondary); margin-bottom: var(--space-md); font-size: var(--text-small); line-height: var(--leading-relaxed);">
+                        {release.description}
+                      </p>
+                    )}
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex gap-sm" style="flex-wrap: wrap;">
+                      <a href={`/releases/${release.slug.current}`} class="btn btn-primary btn-sm">
+                        Listen & Mix
+                      </a>
+                      {release.platformLinks.slice(0, 2).map((link) => (
+                        <a 
+                          href={link.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          class="btn btn-secondary btn-sm"
+                        >
+                          {link.platform}
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       ) : (
         <!-- Empty State -->

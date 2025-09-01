@@ -24,6 +24,7 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     
+    <!-- Default Open Graph tags (can be overridden by page-specific tags) -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
@@ -35,6 +36,9 @@ const {
     <meta name="twitter:image" content={image} />
     
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Additional head content from pages -->
+    <slot name="head" />
     
     <!-- Performance optimizations -->
     <link rel="dns-prefetch" href="//images.unsplash.com" />
