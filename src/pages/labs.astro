@@ -7,93 +7,111 @@ import StemVisualizerPlaceholder from '../components/StemVisualizerPlaceholder.t
   title="Labs - 4ground"
   description="Interactive audio experiments, stem visualizers, and cutting-edge web audio tools"
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="text-center mb-16">
-      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6">Audio Labs</h1>
-      <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-        Experimental audio tools and interactive visualizers for exploring music in new ways
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-      <div class="bg-gray-800 rounded-lg p-8">
-        <h2 class="text-2xl font-semibold text-white mb-4">Stem Visualizer</h2>
-        <p class="text-gray-300 mb-6">
-          Interactive multi-track player with per-stem EQ, effects, and real-time visualization. 
-          Perfect for producers, DJs, and anyone who wants to dive deep into the layers of a track.
+  <!-- Header Section -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-xl">
+        <h1 class="text-h1 text-gradient mb-lg">Audio Labs</h1>
+        <p class="text-body-lg" style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+          Experimental audio tools and interactive visualizers for exploring music in new ways
         </p>
-        <div class="space-y-2 text-sm text-gray-400">
-          <div class="flex items-center">
-            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-            Per-stem mute/solo/gain control
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Grid -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="grid grid-cols-2">
+        <div class="card">
+          <h2 class="text-h2 mb-lg" style="color: var(--primary);">Stem Visualizer</h2>
+          <p class="mb-lg" style="color: var(--text-secondary);">
+            Interactive multi-track player with per-stem EQ, effects, and real-time visualization. 
+            Perfect for producers, DJs, and anyone who wants to dive deep into the layers of a track.
+          </p>
+          <div style="display: flex; flex-direction: column; gap: var(--space-sm);">
+            <div class="flex items-center gap-sm">
+              <span style="width: 8px; height: 8px; background: var(--success); border-radius: 50%; flex-shrink: 0;"></span>
+              <span style="color: var(--text-tertiary); font-size: var(--text-small);">Per-stem mute/solo/gain control</span>
+            </div>
+            <div class="flex items-center gap-sm">
+              <span style="width: 8px; height: 8px; background: var(--success); border-radius: 50%; flex-shrink: 0;"></span>
+              <span style="color: var(--text-tertiary); font-size: var(--text-small);">3-band EQ with kill switches</span>
+            </div>
+            <div class="flex items-center gap-sm">
+              <span style="width: 8px; height: 8px; background: var(--success); border-radius: 50%; flex-shrink: 0;"></span>
+              <span style="color: var(--text-tertiary); font-size: var(--text-small);">Reverb and delay sends</span>
+            </div>
+            <div class="flex items-center gap-sm">
+              <span style="width: 8px; height: 8px; background: var(--warning); border-radius: 50%; flex-shrink: 0;"></span>
+              <span style="color: var(--text-tertiary); font-size: var(--text-small);">Beat-synced automation (coming soon)</span>
+            </div>
           </div>
-          <div class="flex items-center">
-            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-            3-band EQ with kill switches
-          </div>
-          <div class="flex items-center">
-            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-            Reverb and delay sends
-          </div>
-          <div class="flex items-center">
-            <span class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></span>
-            Beat-synced automation (coming soon)
+        </div>
+
+        <div class="card">
+          <h2 class="text-h2 mb-lg" style="color: var(--secondary);">Performance Mode</h2>
+          <p class="mb-lg" style="color: var(--text-secondary);">
+            Lite mode optimized for mobile devices and live performance scenarios. 
+            Reduced CPU usage while maintaining essential mixing capabilities.
+          </p>
+          <div style="display: flex; flex-direction: column; gap: var(--space-sm);">
+            <div class="flex items-center gap-sm">
+              <span style="width: 8px; height: 8px; background: var(--success); border-radius: 50%; flex-shrink: 0;"></span>
+              <span style="color: var(--text-tertiary); font-size: var(--text-small);">Mobile-optimized interface</span>
+            </div>
+            <div class="flex items-center gap-sm">
+              <span style="width: 8px; height: 8px; background: var(--success); border-radius: 50%; flex-shrink: 0;"></span>
+              <span style="color: var(--text-tertiary); font-size: var(--text-small);">Low-latency audio processing</span>
+            </div>
+            <div class="flex items-center gap-sm">
+              <span style="width: 8px; height: 8px; background: var(--success); border-radius: 50%; flex-shrink: 0;"></span>
+              <span style="color: var(--text-tertiary); font-size: var(--text-small);">Essential mixing controls</span>
+            </div>
+            <div class="flex items-center gap-sm">
+              <span style="width: 8px; height: 8px; background: var(--info); border-radius: 50%; flex-shrink: 0;"></span>
+              <span style="color: var(--text-tertiary); font-size: var(--text-small);">Battery-conscious operation</span>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="bg-gray-800 rounded-lg p-8">
-        <h2 class="text-2xl font-semibold text-white mb-4">Performance Mode</h2>
-        <p class="text-gray-300 mb-6">
-          Lite mode optimized for mobile devices and live performance scenarios. 
-          Reduced CPU usage while maintaining essential mixing capabilities.
-        </p>
-        <div class="space-y-2 text-sm text-gray-400">
-          <div class="flex items-center">
-            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-            Mobile-optimized interface
-          </div>
-          <div class="flex items-center">
-            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-            Low-latency audio processing
-          </div>
-          <div class="flex items-center">
-            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-            Essential mixing controls
-          </div>
-          <div class="flex items-center">
-            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-            Battery-conscious operation
-          </div>
+  <!-- Interactive Demo -->
+  <section class="section">
+    <div class="container">
+      <div class="card card-featured" style="background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));">
+        <h2 class="text-h2 mb-xl text-center" style="color: var(--primary);">Interactive Demo</h2>
+        <StemVisualizerPlaceholder 
+          trackTitle="Demo Track" 
+          stemCount={4}
+          client:load 
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Coming Soon -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-xl">
+        <h2 class="text-h2" style="color: var(--text-primary);">Coming Soon</h2>
+      </div>
+      <div class="grid grid-cols-3">
+        <div class="card" style="opacity: 0.7;">
+          <h3 class="text-h3 mb-sm" style="color: var(--accent);">Spectral Analysis</h3>
+          <p style="color: var(--text-tertiary);">Real-time frequency analysis and visualization</p>
+        </div>
+        <div class="card" style="opacity: 0.7;">
+          <h3 class="text-h3 mb-sm" style="color: var(--accent);">Loop Station</h3>
+          <p style="color: var(--text-tertiary);">Record and layer audio loops in real-time</p>
+        </div>
+        <div class="card" style="opacity: 0.7;">
+          <h3 class="text-h3 mb-sm" style="color: var(--accent);">Chord Progression</h3>
+          <p style="color: var(--text-tertiary);">Interactive chord progression generator</p>
         </div>
       </div>
     </div>
-
-    <div class="bg-gray-900 rounded-lg p-8">
-      <h2 class="text-2xl font-semibold text-white mb-6">Interactive Demo</h2>
-      <StemVisualizerPlaceholder 
-        trackTitle="Demo Track" 
-        stemCount={4}
-        client:load 
-      />
-    </div>
-
-    <div class="mt-16 text-center">
-      <h2 class="text-2xl font-semibold text-white mb-6">Coming Soon</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="bg-gray-800 rounded-lg p-6 opacity-60">
-          <h3 class="text-lg font-medium text-white mb-3">Spectral Analysis</h3>
-          <p class="text-gray-400 text-sm">Real-time frequency analysis and visualization</p>
-        </div>
-        <div class="bg-gray-800 rounded-lg p-6 opacity-60">
-          <h3 class="text-lg font-medium text-white mb-3">Loop Station</h3>
-          <p class="text-gray-400 text-sm">Record and layer audio loops in real-time</p>
-        </div>
-        <div class="bg-gray-800 rounded-lg p-6 opacity-60">
-          <h3 class="text-lg font-medium text-white mb-3">Chord Progression</h3>
-          <p class="text-gray-400 text-sm">Interactive chord progression generator</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  </section>
 </BaseLayout>

@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css';
+
 export interface Props {
   title?: string;
   description?: string;
@@ -33,47 +35,102 @@ const {
     <meta name="twitter:image" content={image} />
     
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Performance optimizations -->
+    <link rel="dns-prefetch" href="//images.unsplash.com" />
+    
+    <!-- Optimize font loading with system fonts for better performance -->
+    <style>
+      /* Use system font stack for optimal performance - no external font loading */
+      html {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        font-display: swap;
+      }
+      
+      /* Critical CSS inlined for faster rendering */
+      body {
+        background-color: #030712;
+        color: #f9fafb;
+        line-height: 1.5;
+      }
+    </style>
   </head>
-  <body class="bg-gray-950 text-gray-100 font-sans">
-    <header class="border-b border-gray-800">
-      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-          <div class="flex items-center">
-            <a href="/" class="text-xl font-bold text-white hover:text-gray-300 transition-colors">
-              4ground
-            </a>
-          </div>
+  <body>
+    <header>
+      <div class="container">
+        <nav class="nav">
+          <a href="/" class="nav-brand">4ground</a>
           
-          <div class="hidden sm:flex items-center space-x-8">
-            <a href="/releases" class="text-gray-300 hover:text-white transition-colors">Releases</a>
-            <a href="/labs" class="text-gray-300 hover:text-white transition-colors">Labs</a>
-            <a href="/shows" class="text-gray-300 hover:text-white transition-colors">Shows</a>
-            <a href="/contact" class="text-gray-300 hover:text-white transition-colors">Contact</a>
-          </div>
+          <ul class="nav-links">
+            <li><a href="/releases" class="nav-link">Releases</a></li>
+            <li><a href="/labs" class="nav-link">Labs</a></li>
+            <li><a href="/shows" class="nav-link">Shows</a></li>
+            <li><a href="/contact" class="nav-link">Contact</a></li>
+          </ul>
           
-          <div class="sm:hidden flex items-center">
-            <button type="button" class="text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-label="Main menu">
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </nav>
+          <button type="button" class="nav-toggle" aria-label="Main menu" id="nav-toggle">
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </nav>
+      </div>
     </header>
+
+    <!-- Mobile Navigation -->
+    <div class="nav-mobile" id="nav-mobile">
+      <button type="button" class="nav-toggle" aria-label="Close menu" id="nav-close" style="align-self: flex-end; margin-bottom: var(--space-xl);">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      <a href="/" class="nav-link">Home</a>
+      <a href="/releases" class="nav-link">Releases</a>
+      <a href="/labs" class="nav-link">Labs</a>
+      <a href="/shows" class="nav-link">Shows</a>
+      <a href="/contact" class="nav-link">Contact</a>
+    </div>
 
     <main>
       <slot />
     </main>
 
-    <footer class="border-t border-gray-800 mt-20">
-      <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div class="text-center text-gray-400">
+    <footer class="section" style="padding-top: var(--space-2xl); border-top: 1px solid var(--border-primary);">
+      <div class="container">
+        <div class="text-center" style="color: var(--text-secondary);">
           <p>&copy; 2025 4ground. All rights reserved.</p>
         </div>
       </div>
     </footer>
+
+    <script>
+      // Mobile navigation toggle
+      const navToggle = document.getElementById('nav-toggle');
+      const navClose = document.getElementById('nav-close');
+      const navMobile = document.getElementById('nav-mobile');
+
+      navToggle?.addEventListener('click', () => {
+        navMobile?.classList.add('open');
+      });
+
+      navClose?.addEventListener('click', () => {
+        navMobile?.classList.remove('open');
+      });
+
+      // Close mobile nav on link click
+      navMobile?.addEventListener('click', (e) => {
+        if (e.target instanceof HTMLAnchorElement) {
+          navMobile.classList.remove('open');
+        }
+      });
+
+      // Close mobile nav on outside click
+      document.addEventListener('click', (e) => {
+        if (!navMobile?.contains(e.target as Node) && !navToggle?.contains(e.target as Node)) {
+          navMobile?.classList.remove('open');
+        }
+      });
+    </script>
   </body>
 </html>

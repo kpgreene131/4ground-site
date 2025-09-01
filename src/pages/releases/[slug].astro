@@ -20,113 +20,139 @@ const { release } = Astro.props;
   description={`Listen to ${release.title} by 4ground. Interactive stem player with EQ and effects.`}
   image={release.coverUrl}
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-      <div class="order-2 lg:order-1">
-        <div class="flex items-start space-x-4 mb-6">
-          <div class="text-sm text-gray-400 space-y-1">
-            <div class="flex items-center">
-              <span class="w-16 text-gray-500">Released:</span>
-              <span>{release.releaseDate}</span>
+  <!-- Header Section -->
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-cols-1 lg:grid-cols-2" style="gap: var(--space-2xl);">
+        <!-- Release Info -->
+        <div>
+          <!-- Back Navigation -->
+          <div style="margin-bottom: var(--space-lg);">
+            <a href="/releases" class="btn btn-secondary btn-sm">
+              ← Back to Releases
+            </a>
+          </div>
+
+          <!-- Metadata -->
+          <div class="card" style="margin-bottom: var(--space-xl); padding: var(--space-md);">
+            <div style="display: flex; gap: var(--space-xl); flex-wrap: wrap; font-size: var(--text-small);">
+              <div>
+                <span style="color: var(--text-tertiary);">Released</span>
+                <div style="color: var(--text-primary); font-weight: 600;">{new Date(release.releaseDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+              </div>
+              <div>
+                <span style="color: var(--text-tertiary);">BPM</span>
+                <div style="color: var(--text-primary); font-weight: 600;">{release.bpm}</div>
+              </div>
+              <div>
+                <span style="color: var(--text-tertiary);">Key</span>
+                <div style="color: var(--text-primary); font-weight: 600;">{release.key}</div>
+              </div>
+              <div>
+                <span style="color: var(--text-tertiary);">Duration</span>
+                <div style="color: var(--text-primary); font-weight: 600;">{release.duration}</div>
+              </div>
             </div>
-            <div class="flex items-center">
-              <span class="w-16 text-gray-500">BPM:</span>
-              <span>{release.bpm}</span>
-            </div>
-            <div class="flex items-center">
-              <span class="w-16 text-gray-500">Key:</span>
-              <span>{release.key}</span>
-            </div>
-            <div class="flex items-center">
-              <span class="w-16 text-gray-500">Duration:</span>
-              <span>{release.duration}</span>
-            </div>
+          </div>
+
+          <h1 class="text-h1 text-gradient mb-lg" style="line-height: var(--leading-snug); padding-bottom: var(--space-xs);">
+            {release.title}
+          </h1>
+          
+          <p class="text-body-lg" style="color: var(--text-secondary); margin-bottom: var(--space-xl);">
+            {release.description}
+          </p>
+
+          <!-- Platform Links -->
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-2xl);">
+            {release.platformLinks.map(link => (
+              <a 
+                href={link.url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="btn btn-secondary"
+              >
+                {link.platform} →
+              </a>
+            ))}
+          </div>
+
+          <!-- About Section -->
+          <div class="card">
+            <h2 class="text-h3 mb-lg" style="color: var(--primary);">About This Track</h2>
+            <p style="color: var(--text-secondary); margin-bottom: var(--space-lg); line-height: var(--leading-relaxed);">
+              {release.title} showcases the evolution of 4ground's signature sound, blending deep synthesis 
+              with intricate rhythmic patterns. The track features layered stems that can be explored 
+              individually using the interactive player.
+            </p>
+            
+            <h3 class="text-h4 mb-md" style="color: var(--secondary);">Production Notes</h3>
+            <ul style="color: var(--text-secondary); line-height: var(--leading-relaxed); margin-left: var(--space-lg);">
+              <li style="margin-bottom: var(--space-xs);">All synthesis programmed using modular systems</li>
+              <li style="margin-bottom: var(--space-xs);">Recorded in 24-bit/96kHz for maximum fidelity</li>
+              <li style="margin-bottom: var(--space-xs);">Stems separated for interactive mixing experience</li>
+              <li>Optimized for both headphone and club sound systems</li>
+            </ul>
           </div>
         </div>
 
-        <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4">
-          {release.title}
-        </h1>
-        
-        <p class="text-xl text-gray-300 mb-8">
-          {release.description}
-        </p>
-
-        <div class="flex flex-wrap gap-4 mb-8">
-          {release.platformLinks.map(link => (
-            <a 
-              href={link.url} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="inline-flex items-center px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-950"
-            >
-              {link.platform}
-            </a>
-          ))}
-        </div>
-
-        <div class="prose prose-invert max-w-none">
-          <h2>About This Track</h2>
-          <p>
-            {release.title} showcases the evolution of 4ground's signature sound, blending deep synthesis 
-            with intricate rhythmic patterns. The track features layered stems that can be explored 
-            individually using the interactive player.
-          </p>
-          
-          <h3>Production Notes</h3>
-          <ul>
-            <li>All synthesis programmed using modular systems</li>
-            <li>Recorded in 24-bit/96kHz for maximum fidelity</li>
-            <li>Stems separated for interactive mixing experience</li>
-            <li>Optimized for both headphone and club sound systems</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="order-1 lg:order-2">
-        <div class="sticky top-8">
-          <img 
-            src={release.coverUrl} 
-            alt={`${release.title} cover art`}
-            class="w-full rounded-lg shadow-2xl mb-8"
-          />
-          
-          <div class="bg-gray-800 rounded-lg p-6">
-            <h3 class="text-lg font-semibold text-white mb-4">Interactive Stem Player</h3>
-            <StemVisualizerPlaceholder 
-              trackTitle={release.title}
-              stemCount={4}
-              bpm={release.bpm}
-              client:load 
+        <!-- Cover Art & Player -->
+        <div>
+          <div class="sticky-content" style="position: sticky; top: var(--space-xl);">
+            <img 
+              src={release.coverUrl} 
+              alt={`${release.title} cover art`}
+              style="width: 100%; border-radius: var(--radius-lg); margin-bottom: var(--space-xl); box-shadow: var(--shadow-2xl);"
+              loading="eager"
+              decoding="async"
             />
+            
+            <div class="card card-featured">
+              <h3 class="text-h4 mb-lg" style="color: var(--primary);">Interactive Stem Player</h3>
+              <StemVisualizerPlaceholder 
+                trackTitle={release.title}
+                stemCount={4}
+                bpm={release.bpm}
+                client:load 
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="border-t border-gray-800 pt-16">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-white mb-4">More Releases</h2>
-        <p class="text-gray-300">Explore the complete 4ground catalog</p>
+  <!-- More Releases Section -->
+  <section class="section" style="border-top: 1px solid var(--border-primary);">
+    <div class="container">
+      <div class="text-center mb-xl">
+        <h2 class="text-h2 mb-lg" style="color: var(--primary);">More Releases</h2>
+        <p style="color: var(--text-secondary);">Explore the complete 4ground catalog</p>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-gray-800 rounded-lg p-6 opacity-50">
-          <div class="aspect-square bg-gray-700 rounded-lg mb-4"></div>
-          <h3 class="text-lg font-medium text-white mb-2">Coming Soon</h3>
-          <p class="text-gray-400 text-sm">New releases announcement</p>
+      <div class="grid grid-cols-3" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-xl);">
+        <div class="card" style="opacity: 0.6;">
+          <div style="aspect-ratio: 1; background: var(--bg-tertiary); border-radius: var(--radius-md); margin-bottom: var(--space-md);"></div>
+          <h3 class="text-h4 mb-sm" style="color: var(--text-primary);">Coming Soon</h3>
+          <p style="color: var(--text-tertiary); font-size: var(--text-small);">New releases in production</p>
         </div>
-        <div class="bg-gray-800 rounded-lg p-6 opacity-50">
-          <div class="aspect-square bg-gray-700 rounded-lg mb-4"></div>
-          <h3 class="text-lg font-medium text-white mb-2">Coming Soon</h3>
-          <p class="text-gray-400 text-sm">New releases announcement</p>
+        <div class="card" style="opacity: 0.6;">
+          <div style="aspect-ratio: 1; background: var(--bg-tertiary); border-radius: var(--radius-md); margin-bottom: var(--space-md);"></div>
+          <h3 class="text-h4 mb-sm" style="color: var(--text-primary);">Coming Soon</h3>
+          <p style="color: var(--text-tertiary); font-size: var(--text-small);">New releases in production</p>
         </div>
-        <div class="bg-gray-800 rounded-lg p-6 opacity-50">
-          <div class="aspect-square bg-gray-700 rounded-lg mb-4"></div>
-          <h3 class="text-lg font-medium text-white mb-2">Coming Soon</h3>
-          <p class="text-gray-400 text-sm">New releases announcement</p>
+        <div class="card" style="opacity: 0.6;">
+          <div style="aspect-ratio: 1; background: var(--bg-tertiary); border-radius: var(--radius-md); margin-bottom: var(--space-md);"></div>
+          <h3 class="text-h4 mb-sm" style="color: var(--text-primary);">Coming Soon</h3>
+          <p style="color: var(--text-tertiary); font-size: var(--text-small);">New releases in production</p>
         </div>
       </div>
+      
+      <div class="text-center mt-xl">
+        <a href="/releases" class="btn btn-accent">
+          View All Releases →
+        </a>
+      </div>
     </div>
-  </div>
+  </section>
 </BaseLayout>

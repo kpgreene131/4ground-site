@@ -45,17 +45,33 @@ Ship a polished, mobile-first landing site with complete branding and core pages
   --gray-900: #111827;
   --gray-950: #030712;
 
-  /* Brand Colors */
-  --blue-400: #60a5fa;
-  --blue-500: #3b82f6;
-  --blue-600: #2563eb;
-  --blue-700: #1d4ed8;
+  /* Brand Colors - Inspired by "Waiting" single cover */
+  --purple-400: #a855f7;    /* Deep violet */
+  --purple-500: #8b5cf6;    /* Primary purple */
+  --purple-600: #7c3aed;    /* Darker purple */
+  --purple-700: #6d28d9;    /* Deep purple */
+  
+  --blue-400: #60a5fa;      /* Electric blue accent */
+  --blue-500: #3b82f6;      /* Secondary blue */
+  --blue-600: #2563eb;      /* Deeper blue */
+  
+  --pink-400: #f472b6;      /* Hot pink accent */
+  --pink-500: #ec4899;      /* Fuchsia */
+  --pink-600: #db2777;      /* Deep pink */
   
   /* Semantic Colors */
   --success: #10b981;
   --warning: #f59e0b;
   --error: #ef4444;
   --info: var(--blue-500);
+  
+  /* Brand Semantic Usage */
+  --primary: var(--purple-500);
+  --primary-hover: var(--purple-600);
+  --secondary: var(--blue-500);
+  --accent: var(--pink-500);
+  --gradient-start: var(--purple-700);
+  --gradient-end: var(--pink-600);
 }
 ```
 

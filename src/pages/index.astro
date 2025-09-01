@@ -6,59 +6,60 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   title="4ground - Electronic Music Producer"
   description="Explore electronic music production, stem visualizers, and interactive audio experiences."
 >
-  <section class="relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
+  <!-- Hero Section -->
+  <section class="section" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl); background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary)); position: relative; overflow: hidden;">
+    <!-- Gradient overlay inspired by album art -->
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgb(109 40 217 / 0.05), rgb(236 72 153 / 0.05)); pointer-events: none;"></div>
+    
+    <div class="container" style="position: relative; z-index: 1;">
       <div class="text-center">
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-8">
+        <h1 class="text-display text-gradient mb-xl">
           4ground
         </h1>
-        <p class="text-xl sm:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
+        <p class="text-body-lg mb-xl" style="color: var(--text-secondary); max-width: 600px; margin-left: auto; margin-right: auto;">
           Electronic music producer crafting immersive soundscapes and interactive audio experiences
         </p>
         
-        <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
-          <a 
-            href="/releases" 
-            class="inline-flex items-center px-8 py-4 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-950"
-          >
-            Listen Now
-          </a>
-          <a 
-            href="/labs" 
-            class="inline-flex items-center px-8 py-4 border-2 border-gray-600 text-gray-300 font-semibold rounded-lg hover:border-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-950"
-          >
-            Explore Labs
-          </a>
+        <div class="flex gap-lg justify-center" style="flex-direction: column; align-items: center;">
+          <div class="flex gap-md justify-center" style="flex-wrap: wrap;">
+            <a href="/releases" class="btn btn-primary btn-lg">
+              Listen Now
+            </a>
+            <a href="/labs" class="btn btn-secondary btn-lg">
+              Explore Labs
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="py-24 sm:py-32">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-        <div class="text-center">
-          <div class="bg-gray-800 rounded-lg p-8">
-            <h3 class="text-xl font-semibold text-white mb-4">Latest Releases</h3>
-            <p class="text-gray-400 mb-6">Discover the newest tracks and explore interactive stem players</p>
-            <a href="/releases" class="text-blue-400 hover:text-blue-300 font-medium">Browse Music →</a>
-          </div>
+  <!-- Feature Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-cols-3">
+        <div class="card text-center">
+          <h3 class="text-h3 mb-lg" style="color: var(--primary);">Latest Releases</h3>
+          <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
+            Discover the newest tracks and explore interactive stem players
+          </p>
+          <a href="/releases" class="btn btn-accent">Browse Music →</a>
         </div>
         
-        <div class="text-center">
-          <div class="bg-gray-800 rounded-lg p-8">
-            <h3 class="text-xl font-semibold text-white mb-4">Audio Labs</h3>
-            <p class="text-gray-400 mb-6">Interactive visualizers and experimental audio tools</p>
-            <a href="/labs" class="text-blue-400 hover:text-blue-300 font-medium">Enter Labs →</a>
-          </div>
+        <div class="card card-featured text-center">
+          <h3 class="text-h3 mb-lg" style="color: var(--primary);">Audio Labs</h3>
+          <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
+            Interactive visualizers and experimental audio tools
+          </p>
+          <a href="/labs" class="btn btn-primary">Enter Labs →</a>
         </div>
         
-        <div class="text-center">
-          <div class="bg-gray-800 rounded-lg p-8">
-            <h3 class="text-xl font-semibold text-white mb-4">Live Shows</h3>
-            <p class="text-gray-400 mb-6">Upcoming performances and event information</p>
-            <a href="/shows" class="text-blue-400 hover:text-blue-300 font-medium">View Shows →</a>
-          </div>
+        <div class="card text-center">
+          <h3 class="text-h3 mb-lg" style="color: var(--primary);">Live Shows</h3>
+          <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
+            Upcoming performances and event information
+          </p>
+          <a href="/shows" class="btn btn-accent">View Shows →</a>
         </div>
       </div>
     </div>

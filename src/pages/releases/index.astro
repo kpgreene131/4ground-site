@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Get all releases - this will work with the auto-generated collection
+let releases;
+try {
+  releases = await getCollection('releases');
+  // Sort by release date (newest first)
+  releases = releases.sort((a, b) => new Date(b.data.releaseDate).getTime() - new Date(a.data.releaseDate).getTime());
+} catch (error) {
+  // Fallback if collection doesn't exist yet
+  releases = [];
+}
+---
+
+<BaseLayout
+  title="Releases - 4ground"
+  description="Explore the complete catalog of 4ground's electronic music releases, featuring interactive stem players and platform links."
+>
+  <!-- Header Section -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-xl">
+        <h1 class="text-h1 text-gradient mb-lg">Releases</h1>
+        <p class="text-body-lg" style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+          Explore the complete catalog of electronic music releases, each featuring interactive stem players for an immersive listening experience.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Releases Grid -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      {releases.length > 0 ? (
+        <div class="grid grid-cols-1" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: var(--space-xl);">
+          {releases.map((release) => (
+            <article class="card">
+              <div class="flex gap-lg">
+                <!-- Cover Art -->
+                <div style="flex-shrink: 0;">
+                  <img 
+                    src={release.data.coverUrl} 
+                    alt={`${release.data.title} cover art`}
+                    style="width: 120px; height: 120px; border-radius: var(--radius-md); object-fit: cover;"
+                    loading="lazy"
+                    decoding="async"
+                    width="120"
+                    height="120"
+                  />
+                </div>
+                
+                <!-- Release Info -->
+                <div style="flex: 1; min-width: 0;">
+                  <h2 class="text-h3 mb-sm" style="color: var(--primary);">
+                    <a 
+                      href={`/releases/${release.data.slug}`} 
+                      style="text-decoration: none; color: inherit;"
+                      class="hover-link"
+                    >
+                      {release.data.title}
+                    </a>
+                  </h2>
+                  
+                  <!-- Metadata -->
+                  <div class="flex gap-md mb-sm" style="flex-wrap: wrap; font-size: var(--text-small); color: var(--text-tertiary);">
+                    <span>{new Date(release.data.releaseDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                    <span>•</span>
+                    <span>{release.data.bpm} BPM</span>
+                    <span>•</span>
+                    <span>{release.data.key}</span>
+                    <span>•</span>
+                    <span>{release.data.duration}</span>
+                  </div>
+                  
+                  <!-- Description -->
+                  <p style="color: var(--text-secondary); margin-bottom: var(--space-md); font-size: var(--text-small); line-height: var(--leading-relaxed);">
+                    {release.data.description}
+                  </p>
+                  
+                  <!-- Action Buttons -->
+                  <div class="flex gap-sm" style="flex-wrap: wrap;">
+                    <a href={`/releases/${release.data.slug}`} class="btn btn-primary btn-sm">
+                      Listen & Mix
+                    </a>
+                    {release.data.platformLinks.slice(0, 2).map((link) => (
+                      <a 
+                        href={link.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="btn btn-secondary btn-sm"
+                      >
+                        {link.platform}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <!-- Empty State -->
+        <div class="text-center" style="padding: var(--space-3xl) 0;">
+          <div class="card" style="max-width: 500px; margin: 0 auto; opacity: 0.8;">
+            <h2 class="text-h3 mb-lg" style="color: var(--text-secondary);">Coming Soon</h2>
+            <p style="color: var(--text-tertiary); margin-bottom: var(--space-lg);">
+              New releases are in production. Stay tuned for immersive electronic experiences with interactive stem players.
+            </p>
+            <a href="/labs" class="btn btn-secondary">
+              Explore Audio Labs →
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Newsletter Signup (Future) -->
+  <section class="section">
+    <div class="container">
+      <div class="card text-center" style="max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));">
+        <h3 class="text-h3 mb-lg" style="color: var(--primary);">Stay Updated</h3>
+        <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
+          Get notified when new releases drop, complete with stem files and interactive features.
+        </p>
+        <a href="/contact" class="btn btn-accent">
+          Get in Touch →
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.hover-link:hover {
+  color: var(--primary-hover) !important;
+  transition: color 0.2s ease;
+}
+</style>
