@@ -11,7 +11,7 @@ export default defineConfig({
   name: '4ground-studio',
   title: '4ground CMS',
   
-  projectId: process.env.SANITY_PROJECT_ID || '',
+  projectId: 'tb9ybfxu',
   dataset: process.env.SANITY_DATASET || 'production',
   
   plugins: [

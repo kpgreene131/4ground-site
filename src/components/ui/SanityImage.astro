@@ -53,6 +53,7 @@ if (image?.asset) {
     sizesAttr = responsiveUrls.sizes;
   } else {
     src = getOptimizedImageUrl(image, imageOptions);
+    console.log('getOptimizedImageUrl result:', src);
   }
   
   // Generate LQIP for better loading experience

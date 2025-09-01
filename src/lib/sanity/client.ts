@@ -14,15 +14,28 @@ export const sanityClient = projectId ? createClient({
 
 // Helper function to build image URLs from Sanity
 export function urlFor(source: any) {
-  if (!source?.asset?._ref || !sanityClient) return ''
+  if (!source?.asset) return ''
   
-  const [, id, dimensions, format] = source.asset._ref.match(
-    /^image-([a-f\d]+)-(\d+x\d+)-(\w+)$/
-  ) || []
+  // If asset has url directly (from expanded query), use it
+  if (source.asset.url) {
+    return source.asset.url
+  }
   
-  if (!id || !dimensions || !format) return ''
+  // Otherwise try to build from _ref
+  if (source.asset._ref) {
+    const match = source.asset._ref.match(/^image-([a-f\d]+)-(\d+x\d+)-(\w+)$/)
+    if (!match) return ''
+    
+    const [, id, dimensions, format] = match
+    
+    // Use hardcoded values if sanityClient is null
+    const projectId = sanityClient?.config().projectId || 'tb9ybfxu'
+    const dataset = sanityClient?.config().dataset || 'production'
+    
+    return `https://cdn.sanity.io/images/${projectId}/${dataset}/${id}-${dimensions}.${format}`
+  }
   
-  return `https://cdn.sanity.io/images/${sanityClient.config().projectId}/${sanityClient.config().dataset}/${id}-${dimensions}.${format}`
+  return ''
 }
 
 // Helper to get optimized image URL with parameters
@@ -39,12 +52,17 @@ export function getOptimizedImageUrl(source: any, options: {
   const baseUrl = urlFor(source)
   if (!baseUrl) return ''
   
+  // If no options specified, return base URL
+  if (Object.keys(options).length === 0) {
+    return baseUrl
+  }
+  
   const params = new URLSearchParams()
   
   if (options.width) params.append('w', options.width.toString())
   if (options.height) params.append('h', options.height.toString())
   if (options.quality) params.append('q', options.quality.toString())
-  if (options.format) params.append('fm', options.format)
+  if (options.format && options.format !== 'auto') params.append('fm', options.format)
   if (options.fit) params.append('fit', options.fit)
   if (options.crop) params.append('crop', options.crop)
   if (options.blur) params.append('blur', options.blur.toString())
@@ -59,7 +77,7 @@ export function getResponsiveImageUrls(source: any, sizes: number[] = [400, 800,
   format?: 'webp' | 'jpg' | 'png' | 'auto'
   fit?: 'clip' | 'crop' | 'fill' | 'fillmax' | 'max' | 'scale' | 'min'
 } = {}) {
-  if (!source?.asset?._ref || !sanityClient) return { src: '', srcset: '', sizes: '' }
+  if (!source?.asset) return { src: '', srcset: '', sizes: '' }
   
   const srcset = sizes
     .map(size => `${getOptimizedImageUrl(source, { ...options, width: size })} ${size}w`)
