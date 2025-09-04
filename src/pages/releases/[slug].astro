@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import StemVisualizerPlaceholder from '../../components/StemVisualizerPlaceholder.tsx';
+import StemVisualizer from '../../components/StemVisualizer.tsx';
 import CoverArt from '../../components/ui/CoverArt.astro';
 import OGImageMeta from '../../components/seo/OGImageMeta.astro';
 import { getAllReleases, getReleaseBySlug, urlFor } from '../../lib/sanity';
@@ -10,10 +10,10 @@ import type { Release } from '../../lib/sanity/api';
 export async function getStaticPaths() {
   try {
     const releases = await getAllReleases();
-    
+
     return releases.map((release: Release) => ({
       params: { slug: release.slug.current },
-      props: { release }
+      props: { release },
     }));
   } catch (error) {
     console.error('Error generating static paths:', error);
@@ -37,18 +37,21 @@ const ogImageUrl = getReleaseOGImageUrl(release.slug.current);
   image={ogImageUrl}
 >
   <!-- Enhanced OG Meta Tags -->
-  <OGImageMeta 
+  <OGImageMeta
     slot="head"
     title={`${release.title} - 4ground`}
     description={`Listen to ${release.title} by 4ground. Interactive stem player with EQ and effects. ${release.description || ''}`}
     imageUrl={ogImageUrl}
     type="music.song"
   />
-  
+
   <!-- Header Section -->
   <section class="section">
     <div class="container">
-      <div class="grid grid-cols-1 lg:grid-cols-2" style="gap: var(--space-2xl);">
+      <div
+        class="grid grid-cols-1 lg:grid-cols-2"
+        style="gap: var(--space-2xl);"
+      >
         <!-- Release Info -->
         <div>
           <!-- Back Navigation -->
@@ -59,63 +62,107 @@ const ogImageUrl = getReleaseOGImageUrl(release.slug.current);
           </div>
 
           <!-- Metadata -->
-          <div class="card" style="margin-bottom: var(--space-xl); padding: var(--space-md);">
-            <div style="display: flex; gap: var(--space-xl); flex-wrap: wrap; font-size: var(--text-small);">
+          <div
+            class="card"
+            style="margin-bottom: var(--space-xl); padding: var(--space-md);"
+          >
+            <div
+              style="display: flex; gap: var(--space-xl); flex-wrap: wrap; font-size: var(--text-small);"
+            >
               <div>
                 <span style="color: var(--text-tertiary);">Released</span>
-                <div style="color: var(--text-primary); font-weight: 600;">{new Date(release.releaseDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                <div style="color: var(--text-primary); font-weight: 600;">
+                  {
+                    new Date(release.releaseDate).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })
+                  }
+                </div>
               </div>
               <div>
                 <span style="color: var(--text-tertiary);">BPM</span>
-                <div style="color: var(--text-primary); font-weight: 600;">{release.bpm}</div>
+                <div style="color: var(--text-primary); font-weight: 600;">
+                  {release.bpm}
+                </div>
               </div>
               <div>
                 <span style="color: var(--text-tertiary);">Key</span>
-                <div style="color: var(--text-primary); font-weight: 600;">{release.key}</div>
+                <div style="color: var(--text-primary); font-weight: 600;">
+                  {release.key}
+                </div>
               </div>
               <div>
                 <span style="color: var(--text-tertiary);">Duration</span>
-                <div style="color: var(--text-primary); font-weight: 600;">{release.duration}</div>
+                <div style="color: var(--text-primary); font-weight: 600;">
+                  {release.duration}
+                </div>
               </div>
             </div>
           </div>
 
-          <h1 class="text-h1 text-gradient mb-lg" style="line-height: var(--leading-snug); padding-bottom: var(--space-xs);">
+          <h1
+            class="text-h1 text-gradient mb-lg"
+            style="line-height: var(--leading-snug); padding-bottom: var(--space-xs);"
+          >
             {release.title}
           </h1>
-          
-          <p class="text-body-lg" style="color: var(--text-secondary); margin-bottom: var(--space-xl);">
+
+          <p
+            class="text-body-lg"
+            style="color: var(--text-secondary); margin-bottom: var(--space-xl);"
+          >
             {release.description}
           </p>
 
           <!-- Platform Links -->
-          <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-2xl);">
-            {release.platformLinks.map(link => (
-              <a 
-                href={link.url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                class="btn btn-secondary"
-              >
-                {link.platform} →
-              </a>
-            ))}
+          <div
+            style="display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-2xl);"
+          >
+            {
+              release.platformLinks.map((link) => (
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-secondary"
+                >
+                  {link.platform} →
+                </a>
+              ))
+            }
           </div>
 
           <!-- About Section -->
           <div class="card">
-            <h2 class="text-h3 mb-lg" style="color: var(--primary);">About This Track</h2>
-            <p style="color: var(--text-secondary); margin-bottom: var(--space-lg); line-height: var(--leading-relaxed);">
-              {release.title} showcases the evolution of 4ground's signature sound, blending deep synthesis 
-              with intricate rhythmic patterns. The track features layered stems that can be explored 
-              individually using the interactive player.
+            <h2 class="text-h3 mb-lg" style="color: var(--primary);">
+              About This Track
+            </h2>
+            <p
+              style="color: var(--text-secondary); margin-bottom: var(--space-lg); line-height: var(--leading-relaxed);"
+            >
+              {release.title} showcases the evolution of 4ground's signature sound,
+              blending deep synthesis with intricate rhythmic patterns. The track
+              features layered stems that can be explored individually using the
+              interactive player.
             </p>
-            
-            <h3 class="text-h4 mb-md" style="color: var(--secondary);">Production Notes</h3>
-            <ul style="color: var(--text-secondary); line-height: var(--leading-relaxed); margin-left: var(--space-lg);">
-              <li style="margin-bottom: var(--space-xs);">All synthesis programmed using modular systems</li>
-              <li style="margin-bottom: var(--space-xs);">Recorded in 24-bit/96kHz for maximum fidelity</li>
-              <li style="margin-bottom: var(--space-xs);">Stems separated for interactive mixing experience</li>
+
+            <h3 class="text-h4 mb-md" style="color: var(--secondary);">
+              Production Notes
+            </h3>
+            <ul
+              style="color: var(--text-secondary); line-height: var(--leading-relaxed); margin-left: var(--space-lg);"
+            >
+              <li style="margin-bottom: var(--space-xs);">
+                All synthesis programmed using modular systems
+              </li>
+              <li style="margin-bottom: var(--space-xs);">
+                Recorded in 24-bit/96kHz for maximum fidelity
+              </li>
+              <li style="margin-bottom: var(--space-xs);">
+                Stems separated for interactive mixing experience
+              </li>
               <li>Optimized for both headphone and club sound systems</li>
             </ul>
           </div>
@@ -123,9 +170,12 @@ const ogImageUrl = getReleaseOGImageUrl(release.slug.current);
 
         <!-- Cover Art & Player -->
         <div>
-          <div class="sticky-content" style="position: sticky; top: var(--space-xl);">
+          <div
+            class="sticky-content"
+            style="position: sticky; top: var(--space-xl);"
+          >
             <div style="margin-bottom: var(--space-xl);">
-              <CoverArt 
+              <CoverArt
                 image={release.coverImage}
                 title={release.title}
                 size="large"
@@ -133,14 +183,16 @@ const ogImageUrl = getReleaseOGImageUrl(release.slug.current);
                 showShadow={true}
               />
             </div>
-            
+
             <div class="card card-featured">
-              <h3 class="text-h4 mb-lg" style="color: var(--primary);">Interactive Stem Player</h3>
-              <StemVisualizerPlaceholder 
+              <h3 class="text-h4 mb-lg" style="color: var(--primary);">
+                Interactive Stem Player
+              </h3>
+              <StemVisualizer
                 trackTitle={release.title}
-                stemCount={4}
+                stemBasePath="/audio/stems"
                 bpm={release.bpm}
-                client:load 
+                client:load
               />
             </div>
           </div>
@@ -153,32 +205,58 @@ const ogImageUrl = getReleaseOGImageUrl(release.slug.current);
   <section class="section" style="border-top: 1px solid var(--border-primary);">
     <div class="container">
       <div class="text-center mb-xl">
-        <h2 class="text-h2 mb-lg" style="color: var(--primary);">More Releases</h2>
-        <p style="color: var(--text-secondary);">Explore the complete 4ground catalog</p>
+        <h2 class="text-h2 mb-lg" style="color: var(--primary);">
+          More Releases
+        </h2>
+        <p style="color: var(--text-secondary);">
+          Explore the complete 4ground catalog
+        </p>
       </div>
-      
-      <div class="grid grid-cols-3" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-xl);">
+
+      <div
+        class="grid grid-cols-3"
+        style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-xl);"
+      >
         <div class="card" style="opacity: 0.6;">
-          <div style="aspect-ratio: 1; background: var(--bg-tertiary); border-radius: var(--radius-md); margin-bottom: var(--space-md);"></div>
-          <h3 class="text-h4 mb-sm" style="color: var(--text-primary);">Coming Soon</h3>
-          <p style="color: var(--text-tertiary); font-size: var(--text-small);">New releases in production</p>
+          <div
+            style="aspect-ratio: 1; background: var(--bg-tertiary); border-radius: var(--radius-md); margin-bottom: var(--space-md);"
+          >
+          </div>
+          <h3 class="text-h4 mb-sm" style="color: var(--text-primary);">
+            Coming Soon
+          </h3>
+          <p style="color: var(--text-tertiary); font-size: var(--text-small);">
+            New releases in production
+          </p>
         </div>
         <div class="card" style="opacity: 0.6;">
-          <div style="aspect-ratio: 1; background: var(--bg-tertiary); border-radius: var(--radius-md); margin-bottom: var(--space-md);"></div>
-          <h3 class="text-h4 mb-sm" style="color: var(--text-primary);">Coming Soon</h3>
-          <p style="color: var(--text-tertiary); font-size: var(--text-small);">New releases in production</p>
+          <div
+            style="aspect-ratio: 1; background: var(--bg-tertiary); border-radius: var(--radius-md); margin-bottom: var(--space-md);"
+          >
+          </div>
+          <h3 class="text-h4 mb-sm" style="color: var(--text-primary);">
+            Coming Soon
+          </h3>
+          <p style="color: var(--text-tertiary); font-size: var(--text-small);">
+            New releases in production
+          </p>
         </div>
         <div class="card" style="opacity: 0.6;">
-          <div style="aspect-ratio: 1; background: var(--bg-tertiary); border-radius: var(--radius-md); margin-bottom: var(--space-md);"></div>
-          <h3 class="text-h4 mb-sm" style="color: var(--text-primary);">Coming Soon</h3>
-          <p style="color: var(--text-tertiary); font-size: var(--text-small);">New releases in production</p>
+          <div
+            style="aspect-ratio: 1; background: var(--bg-tertiary); border-radius: var(--radius-md); margin-bottom: var(--space-md);"
+          >
+          </div>
+          <h3 class="text-h4 mb-sm" style="color: var(--text-primary);">
+            Coming Soon
+          </h3>
+          <p style="color: var(--text-tertiary); font-size: var(--text-small);">
+            New releases in production
+          </p>
         </div>
       </div>
-      
+
       <div class="text-center mt-xl">
-        <a href="/releases" class="btn btn-accent">
-          View All Releases →
-        </a>
+        <a href="/releases" class="btn btn-accent"> View All Releases → </a>
       </div>
     </div>
   </section>

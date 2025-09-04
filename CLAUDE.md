@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 # Development
 npm run dev        # Start dev server (localhost:4321)
-npm run build      # Build for production  
+npm run build      # Build for production
 npm run preview    # Preview production build
 npm run lint       # Check code formatting
 npm run format     # Format with Prettier
@@ -20,61 +20,73 @@ npm run format     # Format with Prettier
 ## Architecture Overview
 
 ### Astro Islands Pattern
+
 This is an Astro site using the islands architecture:
+
 - **Static by default**: Pages are `.astro` files that render to static HTML
 - **Interactive islands**: React components with `client:load` directive become interactive
-- **Key island**: `StemVisualizerPlaceholder.tsx` - Complex React component for audio controls
+- **Key island**: `StemVisualizer.tsx` - Complex React component with real Web Audio API implementation
 
 ### Content Architecture
+
 - **Static content**: JSON files in `src/content/releases/` drive dynamic pages
 - **Release routing**: `src/pages/releases/[slug].astro` uses `getStaticPaths()` to generate pages from JSON
 - **Sample data**: `src/content/releases/sample.json` contains complete release structure
 
 ### Component Hierarchy
+
 ```
 BaseLayout.astro (SEO, navigation, footer)
-├── Page components (index.astro, labs.astro, etc.)  
+├── Page components (index.astro, labs.astro, etc.)
 └── React islands (StemVisualizerPlaceholder.tsx)
     └── Complex interactive audio controls
 ```
 
 ### Styling System
+
 - **Tailwind CSS** via Vite plugin (`@tailwindcss/vite`)
 - **Dark theme**: Gray-950 backgrounds with semantic color tokens
 - **Responsive**: Mobile-first breakpoints (sm:640px, lg:1024px)
 
 ## Audio Player Component Architecture
 
-`StemVisualizerPlaceholder.tsx` simulates a 4-stem audio mixer:
-- **State management**: Individual stem objects with volume/EQ/FX properties
-- **Transport controls**: Play/pause with simulated timeline
-- **Lite mode**: Toggle that disables FX processing for mobile optimization
-- **Interactive controls**: Range inputs for all audio parameters
+`StemVisualizer.tsx` implements a real Web Audio API-powered 4-stem audio mixer:
 
-This component is designed to be replaced with real Web Audio API implementation in Phase 3.
+- **Web Audio API**: Complete audio processing chain with AudioContext
+- **Per-stem processing**: Individual AudioBuffer sources with gain, EQ, and FX sends
+- **Real-time visualization**: Spectrum analyzer and level meters using AnalyserNode
+- **3-band EQ**: BiquadFilter nodes for low/mid/high frequency control
+- **FX buses**: Convolution reverb and ping-pong delay with shared processing
+- **Macro LPF**: Master lowpass filter with reverb send coupling
+- **Mobile optimization**: Lite mode with reduced CPU usage and simplified UI
+- **Accessibility**: Full keyboard navigation and screen reader support
+
+Phase 3 implementation completed with comprehensive error handling and browser compatibility.
 
 ## Performance Requirements
 
 Strict performance budget enforced:
+
 - First Load JS ≤ 80KB compressed
-- CSS ≤ 50KB compressed  
+- CSS ≤ 50KB compressed
 - LCP < 2.0s on 4G simulated
 - Lighthouse ≥ 90 Performance/SEO
 
 ## Content Structure
 
 Release JSON schema:
+
 ```json
 {
   "title": "Track Name",
   "slug": "track-name",
-  "releaseDate": "2024-01-15", 
+  "releaseDate": "2024-01-15",
   "bpm": 128,
   "key": "Am",
   "duration": "4:03",
   "coverUrl": "https://...",
-  "platformLinks": [{"platform": "Bandcamp", "url": "..."}],
-  "stems": [{"name": "Kick & Bass", "file": "/audio/..."}]
+  "platformLinks": [{ "platform": "Bandcamp", "url": "..." }],
+  "stems": [{ "name": "Kick & Bass", "file": "/audio/..." }]
 }
 ```
 
@@ -90,13 +102,14 @@ Future Web Audio API implementation must gracefully degrade to static playback w
 **Phase 0** (complete) - scaffold with placeholder components.
 **Phase 1** (complete) - design system implementation and visual polish.
 **Phase 2** (complete) - Sanity CMS integration with responsive image pipeline and dynamic content.
-**Phase 3** will replace `StemVisualizerPlaceholder` with real Web Audio API engine.
+**Phase 3** (complete) - Real Web Audio API stem visualizer with EQ/FX processing and mobile optimization.
 
 Comprehensive specifications in `specs/` folder drive implementation decisions.
 
 ## Content Management System
 
 ### Sanity Integration (Phase 2)
+
 - **CMS**: Sanity Studio for content management
 - **Schema**: TypeScript schemas in `sanity/schemas/` for releases, shows, and lab pieces
 - **API**: Client functions in `src/lib/sanity/` with graceful fallbacks
@@ -104,6 +117,7 @@ Comprehensive specifications in `specs/` folder drive implementation decisions.
 - **Build**: Static generation at build-time with environment variable configuration
 
 ### Setup Requirements
+
 1. Create Sanity project at sanity.io
 2. Configure environment variables (see `.env.example`)
 3. Deploy schema: `npx sanity schema deploy`
@@ -113,7 +127,9 @@ Comprehensive specifications in `specs/` folder drive implementation decisions.
 See `SANITY_SETUP.md` for detailed setup instructions.
 
 ### Fallback Behavior
+
 When Sanity is not configured (missing `SANITY_PROJECT_ID`):
+
 - All API functions return empty arrays/null gracefully
 - Pages render with "Coming Soon" placeholders
 - Build process continues without errors
@@ -122,11 +138,13 @@ When Sanity is not configured (missing `SANITY_PROJECT_ID`):
 ## Image Pipeline (Phase 2.3)
 
 ### Responsive Image Components
+
 - **SanityImage**: Base component with responsive srcsets and LQIP (Low Quality Image Placeholders)
 - **ResponsiveImage**: Wrapper with aspect ratio and object-fit controls
 - **CoverArt**: Specialized component for album covers with hover effects
 
 ### Optimization Features
+
 - **Responsive Sizing**: Multiple image sizes served based on screen width
 - **Modern Formats**: WebP/AVIF with JPEG fallbacks via Sanity CDN
 - **Lazy Loading**: Images load only when entering viewport
@@ -134,6 +152,7 @@ When Sanity is not configured (missing `SANITY_PROJECT_ID`):
 - **SVG Fallbacks**: Dynamic SVG placeholders when images unavailable
 
 ### Performance Benefits
+
 - 60%+ size reduction through format optimization
 - Bandwidth savings via responsive image delivery
 - Improved Core Web Vitals (LCP, CLS)
@@ -142,24 +161,28 @@ When Sanity is not configured (missing `SANITY_PROJECT_ID`):
 ## Open Graph Images (Phase 2.4)
 
 ### Dynamic OG Generation
+
 - **Release OG Images**: Cover art integration with metadata overlay
-- **Show OG Images**: Event-focused design with venue and date prominence  
+- **Show OG Images**: Event-focused design with venue and date prominence
 - **Lab OG Images**: Tech-focused with project status and stack display
 - **Default OG Images**: Branded fallback for generic pages
 
 ### API Endpoints
+
 - `/api/og/release.png?slug=track-name` - Release-specific OG images
 - `/api/og/show.png?slug=event-name` - Show/event OG images
 - `/api/og/lab.png?slug=project-name` - Lab piece OG images
 - `/api/og/default.png?title=...&subtitle=...` - Customizable default images
 
 ### Social Platform Optimization
+
 - **Dimensions**: 1200x630px (Facebook, Twitter, LinkedIn standard)
 - **Format**: PNG with proper compression
 - **Caching**: 1-hour browser, 1-day CDN for optimal performance
 - **Fallback**: Error-resistant with branded placeholder generation
 
 ### SEO Integration
+
 - Structured JSON-LD data for better search engine understanding
 - Platform-specific meta tags (OpenGraph, Twitter Cards)
 - Preloading of critical OG images for faster sharing

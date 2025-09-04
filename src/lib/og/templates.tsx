@@ -14,8 +14,8 @@ const brandColors = {
   text: {
     primary: '#ffffff',
     secondary: '#a1a1aa',
-    tertiary: '#71717a'
-  }
+    tertiary: '#71717a',
+  },
 };
 
 // Release OG Image Template
@@ -32,10 +32,10 @@ export function ReleaseOGTemplate({
   releaseDate: string;
   coverImageUrl?: string;
 }) {
-  const formattedDate = new Date(releaseDate).toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+  const formattedDate = new Date(releaseDate).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   });
 
   return (
@@ -154,8 +154,8 @@ export function ReleaseOGTemplate({
             overflow: 'hidden',
             border: `4px solid ${brandColors.primary}`,
             boxShadow: '0 25px 50px rgba(0, 255, 136, 0.3)',
-            background: coverImageUrl 
-              ? `url(${coverImageUrl})` 
+            background: coverImageUrl
+              ? `url(${coverImageUrl})`
               : 'linear-gradient(135deg, #333, #666)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -196,13 +196,13 @@ export function ShowOGTemplate({
   showDate: string;
   ticketUrl?: string;
 }) {
-  const formattedDate = new Date(showDate).toLocaleDateString('en-US', { 
+  const formattedDate = new Date(showDate).toLocaleDateString('en-US', {
     weekday: 'long',
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   });
-  
+
   const formattedTime = new Date(showDate).toLocaleTimeString('en-US', {
     hour: 'numeric',
     minute: '2-digit',
@@ -220,7 +220,8 @@ export function ShowOGTemplate({
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        background: 'linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 50%, #1a1a1a 100%)',
+        background:
+          'linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 50%, #1a1a1a 100%)',
       }}
     >
       {/* Event Type */}
@@ -276,7 +277,7 @@ export function ShowOGTemplate({
       >
         <strong>{venue}</strong>
       </div>
-      
+
       <div
         style={{
           fontSize: '20px',
@@ -528,7 +529,8 @@ export function DefaultOGTemplate({
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        background: 'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%)',
+        background:
+          'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%)',
       }}
     >
       {/* Logo/Brand */}
@@ -567,18 +569,20 @@ export function DefaultOGTemplate({
           alignItems: 'center',
         }}
       >
-        {[brandColors.primary, brandColors.secondary, brandColors.accent].map((color, index) => (
-          <div
-            key={index}
-            style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              background: color,
-              boxShadow: `0 0 20px ${color}`,
-            }}
-          />
-        ))}
+        {[brandColors.primary, brandColors.secondary, brandColors.accent].map(
+          (color, index) => (
+            <div
+              key={index}
+              style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                background: color,
+                boxShadow: `0 0 20px ${color}`,
+              }}
+            />
+          )
+        )}
       </div>
     </div>
   );

@@ -99,8 +99,8 @@ export const releaseQueries = {
       },
       alt
     }
-  }`
-}
+  }`,
+};
 
 export const showQueries = {
   // Get all published shows
@@ -161,8 +161,8 @@ export const showQueries = {
       },
       alt
     }
-  }`
-}
+  }`,
+};
 
 export const labPieceQueries = {
   // Get all published lab pieces
@@ -224,5 +224,5 @@ export const labPieceQueries = {
     },
     createdDate,
     featured
-  }`
-}
+  }`,
+};

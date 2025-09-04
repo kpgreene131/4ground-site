@@ -16,6 +16,7 @@ This guide will help you set up Sanity CMS for the 4ground site.
 ## Step 2: Configure Environment Variables
 
 1. Copy `.env.example` to `.env`:
+
    ```bash
    cp .env.example .env
    ```
@@ -34,13 +35,14 @@ This guide will help you set up Sanity CMS for the 4ground site.
 2. Select your project
 3. Go to "API" in the left sidebar
 4. Click "Add API token"
-5. Give it a name like "4ground-site" 
+5. Give it a name like "4ground-site"
 6. Set permissions to "Editor" or "Admin"
 7. Copy the token and add it to your `.env` file
 
 ## Step 4: Deploy Sanity Schema
 
 1. Install Sanity CLI globally (if you haven't already):
+
    ```bash
    npm install -g @sanity/cli
    ```
@@ -55,6 +57,7 @@ This guide will help you set up Sanity CMS for the 4ground site.
 You have two options to manage your content:
 
 ### Option A: Local Studio
+
 1. Start the studio locally:
    ```bash
    npx sanity dev
@@ -62,6 +65,7 @@ You have two options to manage your content:
 2. Open http://localhost:3333 in your browser
 
 ### Option B: Sanity Studio (Cloud)
+
 1. Deploy your studio to Sanity's hosted environment:
    ```bash
    npx sanity deploy
@@ -73,7 +77,7 @@ You have two options to manage your content:
 In the Sanity Studio, you can now add:
 
 1. **Releases** - Music releases with cover art, metadata, and platform links
-2. **Shows** - Concert and event information  
+2. **Shows** - Concert and event information
 3. **Lab Pieces** - Portfolio projects and experiments
 
 Each content type has validation rules and required fields as defined in the schemas.
@@ -81,7 +85,7 @@ Each content type has validation rules and required fields as defined in the sch
 ## Step 7: Test the Integration
 
 1. Add some content in Sanity Studio
-2. Make sure to set items as "Published" 
+2. Make sure to set items as "Published"
 3. Run the development server:
    ```bash
    npm run dev
@@ -91,6 +95,7 @@ Each content type has validation rules and required fields as defined in the sch
 ## Content Schema Overview
 
 ### Release Schema
+
 - Title, slug, release date
 - BPM, key, duration
 - Cover image with alt text
@@ -98,7 +103,8 @@ Each content type has validation rules and required fields as defined in the sch
 - Stems for audio files
 - Tags and publication status
 
-### Show Schema  
+### Show Schema
+
 - Title, slug, show date/time
 - Venue, city, country
 - Ticket URL, status (upcoming/past/cancelled)
@@ -106,6 +112,7 @@ Each content type has validation rules and required fields as defined in the sch
 - Description and publication status
 
 ### Lab Piece Schema
+
 - Title, slug, description
 - Demo URL, GitHub URL
 - Tech stack tags
@@ -115,19 +122,25 @@ Each content type has validation rules and required fields as defined in the sch
 ## Troubleshooting
 
 ### Build Errors
+
 If you get build errors, ensure:
+
 - All environment variables are set correctly
 - Your Sanity token has proper permissions
 - Content is marked as "Published" in Sanity Studio
 
 ### Images Not Loading
+
 If images don't appear:
+
 - Check that images have been uploaded to Sanity
 - Verify image alt text is filled out
 - Ensure your project ID is correct in environment variables
 
 ### Content Not Appearing
+
 If content doesn't show up:
+
 - Verify items are marked as "Published" in Sanity
 - Check browser console for API errors
 - Ensure your dataset name matches between Sanity and your env vars
@@ -135,6 +148,7 @@ If content doesn't show up:
 ## Next Steps
 
 Once your CMS is working:
+
 1. Migrate your existing content from JSON to Sanity
 2. Set up preview mode for draft content
 3. Configure webhooks for automatic rebuilds

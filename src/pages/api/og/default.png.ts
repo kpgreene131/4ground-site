@@ -5,9 +5,10 @@ import { DefaultOGTemplate } from '../../../lib/og/templates';
 export const GET: APIRoute = async ({ url, request }) => {
   try {
     const { searchParams } = new URL(url);
-    
+
     const title = searchParams.get('title') || '4ground';
-    const subtitle = searchParams.get('subtitle') || 'Electronic Music & Audio Innovation';
+    const subtitle =
+      searchParams.get('subtitle') || 'Electronic Music & Audio Innovation';
     const type = searchParams.get('type') || 'website';
 
     return new ImageResponse(
@@ -27,14 +28,11 @@ export const GET: APIRoute = async ({ url, request }) => {
     );
   } catch (error) {
     console.error('Default OG image generation error:', error);
-    
+
     // Return a basic fallback
-    return new ImageResponse(
-      DefaultOGTemplate({}),
-      {
-        width: 1200,
-        height: 630,
-      }
-    );
+    return new ImageResponse(DefaultOGTemplate({}), {
+      width: 1200,
+      height: 630,
+    });
   }
 };

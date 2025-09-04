@@ -1,9 +1,11 @@
 # 4ground Site - Project Overview & Roadmap
 
 ## Project Vision
+
 Create an immersive digital platform for 4ground's electronic music, featuring interactive stem players, audio visualizations, and cutting-edge web audio experiences.
 
 ## Core Principles
+
 - **Audio-first**: Every design decision prioritizes audio quality and interactivity
 - **Performance**: Sub-2s loading times, smooth 60fps audio visualizations
 - **Accessibility**: WCAG 2.1 AA compliance, keyboard navigation, screen reader support
@@ -15,10 +17,12 @@ Create an immersive digital platform for 4ground's electronic music, featuring i
 ## Phase Breakdown
 
 ### Phase 0 - Scaffold & Foundations ✅
+
 **Duration**: 1-2 days  
 **Status**: Complete
 
 #### Scope
+
 - Astro + Tailwind + React integration
 - Base layout with SEO, OG tags, responsive navigation
 - Placeholder pages with proper routing structure
@@ -26,6 +30,7 @@ Create an immersive digital platform for 4ground's electronic music, featuring i
 - Performance budget establishment
 
 #### Deliverables
+
 - [x] Astro project with Tailwind CSS
 - [x] BaseLayout with meta tags and responsive navigation
 - [x] Pages: `/`, `/labs`, `/releases/[slug]`, `/shows`, `/contact`
@@ -33,13 +38,15 @@ Create an immersive digital platform for 4ground's electronic music, featuring i
 - [x] Sample release data structure
 
 #### Performance Budget
+
 - First load JS ≤ 80KB
-- CSS ≤ 50KB  
+- CSS ≤ 50KB
 - Images ≤ 300KB on landing page
 - LCP ≤ 2.0s on 4G simulated
 - CLS < 0.1
 
 #### Definition of Done
+
 - [x] All pages render to static HTML
 - [x] Responsive navigation (mobile hamburger menu)
 - [x] Proper semantic HTML structure
@@ -49,10 +56,12 @@ Create an immersive digital platform for 4ground's electronic music, featuring i
 ---
 
 ### Phase 1 - Landing & Brand (mobile-first)
+
 **Duration**: 3-5 days  
 **Status**: Ready to start
 
 #### Scope
+
 - Complete visual design system implementation
 - Typography, color tokens, spacing system
 - Hero section with compelling CTA journey
@@ -60,11 +69,13 @@ Create an immersive digital platform for 4ground's electronic music, featuring i
 - Content from local JSON files
 
 #### Out-of-scope
+
 - CMS integration (Phase 2)
 - Real audio playback (Phase 3)
 - Email capture backend (Phase 4)
 
 #### Deliverables
+
 - [ ] Design system: CSS custom properties for colors, typography, spacing
 - [ ] Hero section with animated wordmark and clear value proposition
 - [ ] Feature cards showcasing releases, labs, shows
@@ -74,15 +85,18 @@ Create an immersive digital platform for 4ground's electronic music, featuring i
 - [ ] Focus visible states for all interactive elements
 
 #### Risks & Mitigations
+
 - **Risk**: Design decisions slow development
 - **Mitigation**: Use proven design patterns, iterate in code
 
 #### Performance Budget
+
 - Same as Phase 0
 - Add: Font loading optimization (font-display: swap)
 - Add: Image optimization pipeline
 
 #### Accessibility Requirements
+
 - Color contrast ratio ≥ 4.5:1 (AA)
 - Touch targets ≥ 44px
 - Keyboard navigation for all interactive elements
@@ -90,6 +104,7 @@ Create an immersive digital platform for 4ground's electronic music, featuring i
 - Screen reader announcements for state changes
 
 #### Definition of Done
+
 - [ ] All pages scale cleanly to 320px width
 - [ ] Header navigation collapses properly on mobile
 - [ ] Open Graph tags render correctly for all pages
@@ -102,10 +117,12 @@ Create an immersive digital platform for 4ground's electronic music, featuring i
 ---
 
 ### Phase 2 - CMS Integration (Sanity)
+
 **Duration**: 4-6 days  
 **Status**: Planned
 
 #### Scope
+
 - Sanity Studio setup with schemas
 - Build-time content fetching
 - Image optimization pipeline
@@ -113,11 +130,13 @@ Create an immersive digital platform for 4ground's electronic music, featuring i
 - Preview mode preparation
 
 #### Content Models
+
 - `release`: title, slug, date, BPM, key, description, cover, platforms, stems
 - `show`: title, date, venue, location, status, tickets
 - `labPiece`: title, description, demo_url, tech_stack
 
 #### Deliverables
+
 - [ ] Sanity project setup and schemas
 - [ ] Astro content collections integration
 - [ ] Image pipeline with Sanity CDN
@@ -126,6 +145,7 @@ Create an immersive digital platform for 4ground's electronic music, featuring i
 - [ ] Content migration from JSON
 
 #### Definition of Done
+
 - [ ] All content pulled from Sanity on build
 - [ ] Images optimized and responsive
 - [ ] OG images generated per release
@@ -135,10 +155,12 @@ Create an immersive digital platform for 4ground's electronic music, featuring i
 ---
 
 ### Phase 3 - Visualizer MVP (Client-only)
+
 **Duration**: 7-10 days  
 **Status**: Planned
 
 #### Scope
+
 - Web Audio API implementation
 - Per-stem playback control (mute/solo/gain)
 - 3-band EQ with kill switches
@@ -149,6 +171,7 @@ Create an immersive digital platform for 4ground's electronic music, featuring i
 - Canvas-based frequency visualization
 
 #### Technical Architecture
+
 ```
 Audio Context
 ├── Master Gain Node
@@ -162,18 +185,21 @@ Audio Context
 ```
 
 #### Stem Processing
+
 - Load WAV/MP3 stems via fetch + AudioContext.decodeAudioData
 - Sync playback using AudioContext.currentTime
 - Quantize control changes to 1/8 note grid (128 BPM baseline)
 - Fallback to mixed track if stem loading fails
 
 #### Mobile Optimizations (Lite Mode)
+
 - Disable reverb/delay processing
 - Reduce FFT size (512 → 256)
 - Simplified visualization
 - Touch-optimized sliders replace knobs
 
 #### Performance Requirements
+
 - CPU usage <60% on mid-tier mobile
 - Memory usage <100MB total
 - Smooth 60fps visualization on desktop
@@ -181,6 +207,7 @@ Audio Context
 - Network: <20MB total for 4 stems
 
 #### Acceptance Criteria
+
 - [ ] All stems stay perfectly synchronized
 - [ ] EQ knobs respond smoothly to mouse/touch
 - [ ] Macro knob automation is beat-synced and audible
@@ -191,6 +218,7 @@ Audio Context
 - [ ] Keyboard controls for play/pause/mute
 
 #### Definition of Done
+
 - [ ] QA pass on iOS Safari, Android Chrome, desktop
 - [ ] Performance budget met on target devices
 - [ ] Audio processing chain documented
@@ -200,10 +228,12 @@ Audio Context
 ---
 
 ### Phase 4 - Integrations & Polish
+
 **Duration**: 3-4 days  
 **Status**: Future
 
 #### Scope
+
 - Bandcamp/Spotify/Apple Music embeds
 - EPK (Electronic Press Kit) page if needed
 - Email newsletter capture
@@ -211,6 +241,7 @@ Audio Context
 - Structured data (schema.org)
 
 #### Deliverables
+
 - [ ] Platform embeds with fallback links
 - [ ] Email capture with backend integration
 - [ ] Show locations with map display
@@ -218,6 +249,7 @@ Audio Context
 - [ ] EPK page with downloadable assets
 
 #### Definition of Done
+
 - [ ] All platform embeds functional
 - [ ] Rich snippets validate in testing tools
 - [ ] Email capture integrated with service
@@ -226,10 +258,12 @@ Audio Context
 ---
 
 ### Phase 5 - Deployment & Observability
+
 **Duration**: 2-3 days  
 **Status**: Future
 
 #### Scope
+
 - Vercel deployment with custom domain
 - CDN configuration for audio files
 - Analytics integration (Plausible)
@@ -237,6 +271,7 @@ Audio Context
 - Cache strategy optimization
 
 #### Infrastructure
+
 - **Domain**: 4ground.xyz
 - **Hosting**: Vercel (Astro support)
 - **CDN**: Cloudflare R2 for audio files
@@ -244,6 +279,7 @@ Audio Context
 - **Monitoring**: Sentry for error tracking
 
 #### Deliverables
+
 - [ ] Production deployment pipeline
 - [ ] Custom domain with SSL
 - [ ] Audio CDN integration
@@ -252,6 +288,7 @@ Audio Context
 - [ ] Performance monitoring
 
 #### Definition of Done
+
 - [ ] Site accessible at 4ground.xyz
 - [ ] Audio files load from CDN
 - [ ] Analytics tracking pageviews
@@ -263,12 +300,14 @@ Audio Context
 ## Success Metrics
 
 ### Technical
+
 - **Performance**: LCP < 2s, FID < 100ms, CLS < 0.1
 - **Accessibility**: WCAG 2.1 AA compliance, no axe-core violations
 - **Audio Quality**: 48kHz+ sample rate, minimal latency (<50ms)
 - **Browser Support**: Chrome/Firefox/Safari on desktop, Chrome/Safari on mobile
 
 ### Business
+
 - **Engagement**: >3min average session duration
 - **Discovery**: Release page views correlate with platform streams
 - **Technical**: Stem visualizer usage indicates feature adoption
@@ -277,14 +316,17 @@ Audio Context
 ## Risk Assessment
 
 ### High Risk
+
 - **Web Audio API browser compatibility**: Mitigation via comprehensive testing and fallbacks
 - **Mobile audio performance**: Mitigation via Lite mode and aggressive optimization
 - **Stem file size/bandwidth**: Mitigation via compression and progressive loading
 
-### Medium Risk  
+### Medium Risk
+
 - **Design complexity vs. development time**: Mitigation via iterative approach
 - **Content migration from JSON to CMS**: Mitigation via automated scripts
 
 ### Low Risk
+
 - **Third-party service integrations**: Well-documented APIs
 - **Deployment complexity**: Vercel has excellent Astro support

@@ -1,6 +1,7 @@
 // Utility functions for generating Open Graph image URLs
 
-const baseUrl = import.meta.env.SITE || process.env.SITE || 'http://localhost:4321';
+const baseUrl =
+  import.meta.env.SITE || process.env.SITE || 'http://localhost:4321';
 
 export interface OGImageOptions {
   width?: number;
@@ -8,67 +9,87 @@ export interface OGImageOptions {
   quality?: number;
 }
 
-export function getReleaseOGImageUrl(slug: string, options: OGImageOptions = {}): string {
+export function getReleaseOGImageUrl(
+  slug: string,
+  options: OGImageOptions = {}
+): string {
   const params = new URLSearchParams();
   params.set('slug', slug);
-  
+
   if (options.width) params.set('width', options.width.toString());
   if (options.height) params.set('height', options.height.toString());
   if (options.quality) params.set('quality', options.quality.toString());
-  
+
   return `${baseUrl}/api/og/release.png?${params.toString()}`;
 }
 
-export function getShowOGImageUrl(slug: string, options: OGImageOptions = {}): string {
+export function getShowOGImageUrl(
+  slug: string,
+  options: OGImageOptions = {}
+): string {
   const params = new URLSearchParams();
   params.set('slug', slug);
-  
+
   if (options.width) params.set('width', options.width.toString());
   if (options.height) params.set('height', options.height.toString());
   if (options.quality) params.set('quality', options.quality.toString());
-  
+
   return `${baseUrl}/api/og/show.png?${params.toString()}`;
 }
 
-export function getLabPieceOGImageUrl(slug: string, options: OGImageOptions = {}): string {
+export function getLabPieceOGImageUrl(
+  slug: string,
+  options: OGImageOptions = {}
+): string {
   const params = new URLSearchParams();
   params.set('slug', slug);
-  
+
   if (options.width) params.set('width', options.width.toString());
   if (options.height) params.set('height', options.height.toString());
   if (options.quality) params.set('quality', options.quality.toString());
-  
+
   return `${baseUrl}/api/og/lab.png?${params.toString()}`;
 }
 
-export function getDefaultOGImageUrl(options: {
-  title?: string;
-  subtitle?: string;
-  type?: string;
-} & OGImageOptions = {}): string {
+export function getDefaultOGImageUrl(
+  options: {
+    title?: string;
+    subtitle?: string;
+    type?: string;
+  } & OGImageOptions = {}
+): string {
   const params = new URLSearchParams();
-  
+
   if (options.title) params.set('title', options.title);
   if (options.subtitle) params.set('subtitle', options.subtitle);
   if (options.type) params.set('type', options.type);
   if (options.width) params.set('width', options.width.toString());
   if (options.height) params.set('height', options.height.toString());
   if (options.quality) params.set('quality', options.quality.toString());
-  
+
   return `${baseUrl}/api/og/default.png?${params.toString()}`;
 }
 
 // Generate Twitter Card compatible images (different aspect ratio)
-export function getTwitterCardImageUrl(type: 'release' | 'show' | 'lab' | 'default', slug?: string): string {
+export function getTwitterCardImageUrl(
+  type: 'release' | 'show' | 'lab' | 'default',
+  slug?: string
+): string {
   const options = { width: 1200, height: 600 }; // Twitter's preferred size
-  
+
   switch (type) {
     case 'release':
-      return slug ? getReleaseOGImageUrl(slug, options) : getDefaultOGImageUrl(options);
+      return slug
+        ? getReleaseOGImageUrl(slug, options)
+        : getDefaultOGImageUrl(options);
     case 'show':
-      return slug ? getShowOGImageUrl(slug, options) : getDefaultOGImageUrl(options);
+      return slug
+        ? getShowOGImageUrl(slug, options)
+        : getDefaultOGImageUrl(options);
     case 'lab':
-      return slug ? getLabPieceOGImageUrl(slug, options) : getDefaultOGImageUrl(options);
+      return slug
+        ? getLabPieceOGImageUrl(slug, options)
+        : getDefaultOGImageUrl(options);
     default:
       return getDefaultOGImageUrl(options);
   }
@@ -89,7 +110,10 @@ export function preloadOGImage(url: string): void {
 export function validateOGImageUrl(url: string): boolean {
   try {
     const parsedUrl = new URL(url);
-    return parsedUrl.pathname.includes('/api/og/') && parsedUrl.pathname.endsWith('.png');
+    return (
+      parsedUrl.pathname.includes('/api/og/') &&
+      parsedUrl.pathname.endsWith('.png')
+    );
   } catch {
     return false;
   }
@@ -112,7 +136,7 @@ export function generateOpenGraphTags(options: {
     url,
     type = 'website',
     siteName = '4ground',
-    twitterHandle = '@4ground'
+    twitterHandle = '@4ground',
   } = options;
 
   return {
@@ -126,7 +150,7 @@ export function generateOpenGraphTags(options: {
     'og:image:width': '1200',
     'og:image:height': '630',
     'og:image:type': 'image/png',
-    
+
     // Twitter Card
     'twitter:card': 'summary_large_image',
     'twitter:site': twitterHandle,
@@ -134,7 +158,7 @@ export function generateOpenGraphTags(options: {
     'twitter:title': title,
     'twitter:description': description,
     'twitter:image': imageUrl,
-    
+
     // Additional
     'theme-color': '#00ff88',
   };
@@ -155,7 +179,7 @@ export class OGImageCache {
 
   set(key: string, url: string): void {
     this.cache.set(key, url);
-    
+
     // Auto-cleanup after maxAge
     setTimeout(() => {
       this.cache.delete(key);

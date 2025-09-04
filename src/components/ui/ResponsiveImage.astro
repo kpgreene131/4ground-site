@@ -12,7 +12,7 @@ interface Props {
   class?: string;
   style?: string;
   fallbackUrl?: string;
-  
+
   // Responsive breakpoint sizes
   mobile?: number;
   tablet?: number;
@@ -33,7 +33,7 @@ const {
   mobile = 400,
   tablet = 800,
   desktop = 1200,
-  large = 1600
+  large = 1600,
 } = Astro.props;
 
 // Determine if it's a Sanity image or regular URL
@@ -52,49 +52,62 @@ const combinedStyle = `
 `;
 ---
 
-{isSanityImage ? (
-  <SanityImage
-    image={image as SanityImageType}
-    responsive={true}
-    sizes={responsiveSizes}
-    quality={quality}
-    format="auto"
-    loading={loading}
-    class={`responsive-image ${className}`}
-    style={combinedStyle}
-    fallbackUrl={fallbackUrl}
-  />
-) : (
-  <img
-    src={staticSrc}
-    alt={alt || ''}
-    loading={loading}
-    decoding="async"
-    class={`responsive-image ${className}`}
-    style={combinedStyle}
-  />
-)}
+{
+  isSanityImage ? (
+    <SanityImage
+      image={image as SanityImageType}
+      responsive={true}
+      sizes={responsiveSizes}
+      quality={quality}
+      format="auto"
+      loading={loading}
+      class={`responsive-image ${className}`}
+      style={combinedStyle}
+      fallbackUrl={fallbackUrl}
+    />
+  ) : (
+    <img
+      src={staticSrc}
+      alt={alt || ''}
+      loading={loading}
+      decoding="async"
+      class={`responsive-image ${className}`}
+      style={combinedStyle}
+    />
+  )
+}
 
 <style>
-.responsive-image {
-  display: block;
-  border-radius: inherit;
-  transition: transform 0.2s ease, opacity 0.3s ease;
-}
+  .responsive-image {
+    display: block;
+    border-radius: inherit;
+    transition:
+      transform 0.2s ease,
+      opacity 0.3s ease;
+  }
 
-.responsive-image:hover {
-  transform: scale(1.02);
-}
+  .responsive-image:hover {
+    transform: scale(1.02);
+  }
 
-/* Skeleton loading state */
-.responsive-image[src=""] {
-  background: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--bg-secondary) 50%, var(--bg-tertiary) 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-}
+  /* Skeleton loading state */
+  .responsive-image[src=''] {
+    background: linear-gradient(
+      90deg,
+      var(--bg-tertiary) 25%,
+      var(--bg-secondary) 50%,
+      var(--bg-tertiary) 75%
+    );
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+  }
 
-@keyframes loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
+  @keyframes loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
 </style>

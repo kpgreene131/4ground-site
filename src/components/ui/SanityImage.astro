@@ -1,5 +1,9 @@
 ---
-import { getOptimizedImageUrl, getResponsiveImageUrls, getLqipUrl } from '../../lib/sanity/client';
+import {
+  getOptimizedImageUrl,
+  getResponsiveImageUrls,
+  getLqipUrl,
+} from '../../lib/sanity/client';
 import { generatePlaceholderSvg } from '../../lib/utils/placeholders';
 import type { SanityImage } from '../../lib/sanity/api';
 
@@ -34,7 +38,7 @@ const {
   decoding = 'async',
   class: className = '',
   style = '',
-  fallbackUrl = '/images/placeholder.jpg'
+  fallbackUrl = '/images/placeholder.jpg',
 } = Astro.props;
 
 // Generate image URLs
@@ -55,7 +59,7 @@ if (image?.asset) {
     src = getOptimizedImageUrl(image, imageOptions);
     console.log('getOptimizedImageUrl result:', src);
   }
-  
+
   // Generate LQIP for better loading experience
   lqip = getLqipUrl(image);
 }
@@ -89,21 +93,23 @@ const alt = image?.alt || '';
 />
 
 <style>
-.sanity-image {
-  transition: opacity 0.3s ease;
-}
+  .sanity-image {
+    transition: opacity 0.3s ease;
+  }
 
-.sanity-image[data-lqip]:not([src=""]) {
-  background-repeat: no-repeat;
-}
+  .sanity-image[data-lqip]:not([src='']) {
+    background-repeat: no-repeat;
+  }
 
-/* Optional: Blur-to-focus effect */
-.sanity-image.blur-load {
-  filter: blur(5px);
-  transition: filter 0.3s ease, opacity 0.3s ease;
-}
+  /* Optional: Blur-to-focus effect */
+  .sanity-image.blur-load {
+    filter: blur(5px);
+    transition:
+      filter 0.3s ease,
+      opacity 0.3s ease;
+  }
 
-.sanity-image.blur-load.loaded {
-  filter: blur(0);
-}
+  .sanity-image.blur-load.loaded {
+    filter: blur(0);
+  }
 </style>

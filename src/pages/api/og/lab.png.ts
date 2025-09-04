@@ -7,7 +7,7 @@ export const GET: APIRoute = async ({ url, request }) => {
   try {
     const { searchParams } = new URL(url);
     const slug = searchParams.get('slug');
-    
+
     if (!slug) {
       return new Response('Missing slug parameter', { status: 400 });
     }
@@ -16,7 +16,7 @@ export const GET: APIRoute = async ({ url, request }) => {
     let labPiece = null;
     try {
       const labPieces = await getAllLabPieces();
-      labPiece = labPieces.find(l => l.slug.current === slug);
+      labPiece = labPieces.find((l) => l.slug.current === slug);
     } catch (error) {
       console.error('Error fetching lab pieces:', error);
     }
@@ -57,7 +57,7 @@ export const GET: APIRoute = async ({ url, request }) => {
     );
   } catch (error) {
     console.error('OG image generation error:', error);
-    
+
     // Return a fallback image on error
     return new ImageResponse(
       LabPieceOGTemplate({

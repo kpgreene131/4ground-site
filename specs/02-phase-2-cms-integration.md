@@ -19,10 +19,11 @@ Phase 2 transitions the 4ground site from static JSON content to a dynamic CMS-p
 ## Technical Architecture
 
 ### Content Management Stack
+
 ```
-Sanity Studio (CMS) 
+Sanity Studio (CMS)
     ↓ Build-time Fetch
-Astro Content Collections 
+Astro Content Collections
     ↓ Static Generation
 Optimized Static Site
     ↓ CDN Delivery
@@ -32,6 +33,7 @@ End User Experience
 ### Content Models
 
 #### Release Schema
+
 ```typescript
 {
   title: string;
@@ -56,6 +58,7 @@ End User Experience
 ```
 
 #### Show Schema
+
 ```typescript
 {
   title: string;
@@ -73,6 +76,7 @@ End User Experience
 ```
 
 #### Lab Piece Schema
+
 ```typescript
 {
   title: string;
@@ -89,6 +93,7 @@ End User Experience
 ## Implementation Plan
 
 ### Phase 2.1 - Sanity Setup & Schemas (1-2 days)
+
 - [ ] Create Sanity project and configure Studio
 - [ ] Define content schemas with proper validation
 - [ ] Set up image CDN and file handling
@@ -96,6 +101,7 @@ End User Experience
 - [ ] Test content creation and management
 
 ### Phase 2.2 - Astro Integration (1-2 days)
+
 - [ ] Install Sanity client for Astro
 - [ ] Create data fetching functions for build-time
 - [ ] Update Astro content collections to use Sanity
@@ -103,6 +109,7 @@ End User Experience
 - [ ] Add error handling for missing content
 
 ### Phase 2.3 - Image Pipeline (1 day)
+
 - [ ] Configure Sanity CDN for optimized delivery
 - [ ] Implement responsive image components
 - [ ] Add proper alt text and loading attributes
@@ -110,6 +117,7 @@ End User Experience
 - [ ] Implement fallback for missing images
 
 ### Phase 2.4 - OG Image Generation (1 day)
+
 - [ ] Create dynamic OG image templates
 - [ ] Generate images per release with cover art
 - [ ] Implement caching strategy for generated images
@@ -117,6 +125,7 @@ End User Experience
 - [ ] Add fallback OG images
 
 ### Phase 2.5 - Content Migration & Testing (1 day)
+
 - [ ] Migrate existing JSON data to Sanity
 - [ ] Verify all pages render correctly
 - [ ] Test build performance with full content
@@ -126,6 +135,7 @@ End User Experience
 ## Technical Requirements
 
 ### Performance Budget
+
 - **Build Time**: < 60 seconds with full content
 - **Image Optimization**: WebP/AVIF with fallbacks
 - **Bundle Size**: No increase from Phase 1
@@ -133,6 +143,7 @@ End User Experience
 - **CDN**: Sanity CDN for global image delivery
 
 ### Content Validation
+
 - Required fields enforced at schema level
 - URL validation for external links
 - Image dimension and file size limits
@@ -140,6 +151,7 @@ End User Experience
 - Publication status controls
 
 ### Error Handling
+
 - Graceful fallbacks for missing content
 - Build-time validation with helpful error messages
 - Content draft/preview mode preparation
@@ -148,12 +160,14 @@ End User Experience
 ## Integration Points
 
 ### Existing Systems
+
 - **Astro Content Collections**: Update to fetch from Sanity
 - **Image Components**: Enhance with Sanity CDN URLs
 - **Navigation**: Dynamic menu based on published content
 - **Sitemap**: Auto-generation based on published content
 
 ### Future Phases
+
 - **Phase 3**: Stem audio files managed via Sanity
 - **Phase 4**: Newsletter signups stored in Sanity
 - **Phase 5**: Analytics data visualization in Studio
@@ -161,11 +175,13 @@ End User Experience
 ## Content Strategy
 
 ### Content Types Priority
+
 1. **Releases** (High): Core business content, drives traffic
 2. **Shows** (Medium): Event-driven content with time sensitivity
 3. **Lab Pieces** (Low): Portfolio content, less frequent updates
 
 ### Publishing Workflow
+
 1. Content created in Sanity Studio
 2. Preview mode for staging review
 3. Published status triggers rebuild
@@ -174,6 +190,7 @@ End User Experience
 ## Quality Assurance
 
 ### Content QA Checklist
+
 - [ ] All release pages render with correct metadata
 - [ ] Show pages display proper date/time formatting
 - [ ] Lab pieces link to functional demos
@@ -182,6 +199,7 @@ End User Experience
 - [ ] Build process handles missing/draft content gracefully
 
 ### Performance Testing
+
 - [ ] Build time remains under 60 seconds
 - [ ] Image loading maintains LCP targets
 - [ ] Mobile performance unchanged
@@ -190,12 +208,14 @@ End User Experience
 ## Success Metrics
 
 ### Technical
+
 - **Build Time**: < 60s consistently
 - **Image Optimization**: 60%+ size reduction vs original
 - **Content Freshness**: Updates live within 5 minutes
 - **Error Rate**: < 1% failed builds
 
 ### Content Management
+
 - **Editor Experience**: Content updates possible without technical knowledge
 - **Preview Accuracy**: Preview matches production exactly
 - **Workflow Efficiency**: Publish workflow takes < 5 minutes
@@ -203,20 +223,24 @@ End User Experience
 ## Risk Mitigation
 
 ### High Risk: Build Performance Degradation
+
 - **Mitigation**: Implement incremental builds and content caching
 - **Fallback**: Static JSON fallback if Sanity fails
 
 ### Medium Risk: Content Migration Issues
+
 - **Mitigation**: Comprehensive migration scripts with validation
 - **Fallback**: Manual content entry with verification steps
 
 ### Low Risk: Image CDN Performance
+
 - **Mitigation**: Multi-CDN strategy with fallbacks
 - **Testing**: Load testing with various image sizes and formats
 
 ## Definition of Done
 
 ### Technical Requirements
+
 - [ ] All content pulled from Sanity during build
 - [ ] Images optimized and served via CDN
 - [ ] OG images generated for each release
@@ -225,6 +249,7 @@ End User Experience
 - [ ] Environment variables properly configured
 
 ### Content Requirements
+
 - [ ] All existing content migrated successfully
 - [ ] Content editing workflow documented
 - [ ] Published/draft status working correctly
@@ -232,6 +257,7 @@ End User Experience
 - [ ] URL structure maintained (no broken links)
 
 ### Quality Assurance
+
 - [ ] Manual testing of all content types
 - [ ] Performance budget targets met
 - [ ] SEO metadata validates correctly
@@ -239,4 +265,5 @@ End User Experience
 - [ ] Build process resilient to content errors
 
 ## Next Steps
+
 Upon completion of Phase 2, the site will be ready for Phase 3 (Interactive Audio Visualizer) with a robust content management foundation that can scale as the 4ground catalog grows.

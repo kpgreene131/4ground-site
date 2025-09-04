@@ -8,7 +8,7 @@ export const GET: APIRoute = async ({ url, request }) => {
   try {
     const { searchParams } = new URL(url);
     const slug = searchParams.get('slug');
-    
+
     if (!slug) {
       return new Response('Missing slug parameter', { status: 400 });
     }
@@ -38,7 +38,9 @@ export const GET: APIRoute = async ({ url, request }) => {
     }
 
     // Get cover image URL if available
-    const coverImageUrl = release.coverImage ? urlFor(release.coverImage) : undefined;
+    const coverImageUrl = release.coverImage
+      ? urlFor(release.coverImage)
+      : undefined;
 
     return new ImageResponse(
       ReleaseOGTemplate({
@@ -59,7 +61,7 @@ export const GET: APIRoute = async ({ url, request }) => {
     );
   } catch (error) {
     console.error('OG image generation error:', error);
-    
+
     // Return a fallback image on error
     return new ImageResponse(
       ReleaseOGTemplate({

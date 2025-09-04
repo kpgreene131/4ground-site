@@ -20,37 +20,39 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    
+
     <title>{title}</title>
     <meta name="description" content={description} />
-    
+
     <!-- Default Open Graph tags (can be overridden by page-specific tags) -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
     <meta property="og:type" content="website" />
-    
+
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
-    
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    
+
     <!-- Additional head content from pages -->
     <slot name="head" />
-    
+
     <!-- Performance optimizations -->
     <link rel="dns-prefetch" href="//images.unsplash.com" />
-    
+
     <!-- Optimize font loading with system fonts for better performance -->
     <style>
       /* Use system font stack for optimal performance - no external font loading */
       html {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+          'Helvetica Neue', Arial, sans-serif;
         font-display: swap;
       }
-      
+
       /* Critical CSS inlined for faster rendering */
       body {
         background-color: #030712;
@@ -64,17 +66,32 @@ const {
       <div class="container">
         <nav class="nav">
           <a href="/" class="nav-brand">4ground</a>
-          
+
           <ul class="nav-links">
             <li><a href="/releases" class="nav-link">Releases</a></li>
             <li><a href="/labs" class="nav-link">Labs</a></li>
             <li><a href="/shows" class="nav-link">Shows</a></li>
             <li><a href="/contact" class="nav-link">Contact</a></li>
           </ul>
-          
-          <button type="button" class="nav-toggle" aria-label="Main menu" id="nav-toggle">
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+
+          <button
+            type="button"
+            class="nav-toggle"
+            aria-label="Main menu"
+            id="nav-toggle"
+          >
+            <svg
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
         </nav>
@@ -83,12 +100,28 @@ const {
 
     <!-- Mobile Navigation -->
     <div class="nav-mobile" id="nav-mobile">
-      <button type="button" class="nav-toggle" aria-label="Close menu" id="nav-close" style="align-self: flex-end; margin-bottom: var(--space-xl);">
-        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-label="Close menu"
+        id="nav-close"
+        style="align-self: flex-end; margin-bottom: var(--space-xl);"
+      >
+        <svg
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
-      
+
       <a href="/" class="nav-link">Home</a>
       <a href="/releases" class="nav-link">Releases</a>
       <a href="/labs" class="nav-link">Labs</a>
@@ -100,7 +133,10 @@ const {
       <slot />
     </main>
 
-    <footer class="section" style="padding-top: var(--space-2xl); border-top: 1px solid var(--border-primary);">
+    <footer
+      class="section"
+      style="padding-top: var(--space-2xl); border-top: 1px solid var(--border-primary);"
+    >
       <div class="container">
         <div class="text-center" style="color: var(--text-secondary);">
           <p>&copy; 2025 4ground. All rights reserved.</p>
@@ -131,7 +167,10 @@ const {
 
       // Close mobile nav on outside click
       document.addEventListener('click', (e) => {
-        if (!navMobile?.contains(e.target as Node) && !navToggle?.contains(e.target as Node)) {
+        if (
+          !navMobile?.contains(e.target as Node) &&
+          !navToggle?.contains(e.target as Node)
+        ) {
           navMobile?.classList.remove('open');
         }
       });

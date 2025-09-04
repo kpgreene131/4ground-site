@@ -20,7 +20,7 @@ export function generatePlaceholderSvg(
       </text>
     </svg>
   `;
-  
+
   // Use encodeURIComponent instead of btoa for better compatibility
   return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
@@ -29,11 +29,17 @@ export function generateCoverArtPlaceholder(size: number = 800): string {
   return generatePlaceholderSvg(size, size, '♪', '#0f0f0f', '#333333');
 }
 
-export function generateFlyerPlaceholder(width: number = 600, height: number = 800): string {
+export function generateFlyerPlaceholder(
+  width: number = 600,
+  height: number = 800
+): string {
   return generatePlaceholderSvg(width, height, 'EVENT', '#1a1a1a', '#444444');
 }
 
-export function generateThumbnailPlaceholder(width: number = 400, height: number = 300): string {
+export function generateThumbnailPlaceholder(
+  width: number = 400,
+  height: number = 300
+): string {
   return generatePlaceholderSvg(width, height, 'LAB', '#0d1117', '#3d444d');
 }
 
@@ -42,18 +48,24 @@ export function handleImageError(event: Event) {
   const img = event.target as HTMLImageElement;
   if (img && !img.dataset.fallbackApplied) {
     img.dataset.fallbackApplied = 'true';
-    
+
     // Determine appropriate fallback based on classes or data attributes
     if (img.classList.contains('cover-art') || img.dataset.type === 'cover') {
       img.src = generateCoverArtPlaceholder();
-    } else if (img.classList.contains('flyer') || img.dataset.type === 'flyer') {
+    } else if (
+      img.classList.contains('flyer') ||
+      img.dataset.type === 'flyer'
+    ) {
       img.src = generateFlyerPlaceholder();
-    } else if (img.classList.contains('thumbnail') || img.dataset.type === 'thumbnail') {
+    } else if (
+      img.classList.contains('thumbnail') ||
+      img.dataset.type === 'thumbnail'
+    ) {
       img.src = generateThumbnailPlaceholder();
     } else {
       img.src = generatePlaceholderSvg(400, 400, 'No Image');
     }
-    
+
     img.alt = img.alt || 'Placeholder image';
   }
 }
@@ -69,17 +81,23 @@ export function preloadImage(src: string): Promise<void> {
 }
 
 // Generate srcset for static images (non-Sanity)
-export function generateStaticSrcSet(baseSrc: string, sizes: number[] = [400, 800, 1200, 1600]): string {
+export function generateStaticSrcSet(
+  baseSrc: string,
+  sizes: number[] = [400, 800, 1200, 1600]
+): string {
   // For static images, we can't generate different sizes dynamically
   // Return the base source for all sizes as fallback
-  return sizes.map(size => `${baseSrc} ${size}w`).join(', ');
+  return sizes.map((size) => `${baseSrc} ${size}w`).join(', ');
 }
 
 // Check if image URL is valid
 export async function isValidImageUrl(url: string): Promise<boolean> {
   try {
     const response = await fetch(url, { method: 'HEAD' });
-    return response.ok && response.headers.get('content-type')?.startsWith('image/') === true;
+    return (
+      response.ok &&
+      response.headers.get('content-type')?.startsWith('image/') === true
+    );
   } catch {
     return false;
   }

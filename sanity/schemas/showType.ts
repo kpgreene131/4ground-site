@@ -1,4 +1,4 @@
-import {defineType, defineField} from 'sanity'
+import { defineType, defineField } from 'sanity';
 
 export const showType = defineType({
   name: 'show',
@@ -9,7 +9,7 @@ export const showType = defineType({
       name: 'title',
       title: 'Show Title',
       type: 'string',
-      validation: (rule) => rule.required().min(1).max(100)
+      validation: (rule) => rule.required().min(1).max(100),
     }),
     defineField({
       name: 'slug',
@@ -18,42 +18,43 @@ export const showType = defineType({
       options: {
         source: 'title',
         maxLength: 96,
-        isUnique: (value, context) => context.defaultIsUnique(value, context)
+        isUnique: (value, context) => context.defaultIsUnique(value, context),
       },
-      validation: (rule) => rule.required()
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'showDate',
       title: 'Show Date & Time',
       type: 'datetime',
-      validation: (rule) => rule.required()
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'venue',
       title: 'Venue',
       type: 'string',
-      validation: (rule) => rule.required().min(1).max(100)
+      validation: (rule) => rule.required().min(1).max(100),
     }),
     defineField({
       name: 'city',
       title: 'City',
       type: 'string',
-      validation: (rule) => rule.required().min(1).max(50)
+      validation: (rule) => rule.required().min(1).max(50),
     }),
     defineField({
       name: 'country',
       title: 'Country',
       type: 'string',
-      validation: (rule) => rule.required().min(2).max(50)
+      validation: (rule) => rule.required().min(2).max(50),
     }),
     defineField({
       name: 'ticketUrl',
       title: 'Ticket URL',
       type: 'url',
-      validation: (rule) => rule.uri({
-        allowRelative: false,
-        scheme: ['http', 'https']
-      })
+      validation: (rule) =>
+        rule.uri({
+          allowRelative: false,
+          scheme: ['http', 'https'],
+        }),
     }),
     defineField({
       name: 'status',
@@ -61,28 +62,28 @@ export const showType = defineType({
       type: 'string',
       options: {
         list: [
-          {title: 'Upcoming', value: 'upcoming'},
-          {title: 'Past', value: 'past'},
-          {title: 'Cancelled', value: 'cancelled'}
+          { title: 'Upcoming', value: 'upcoming' },
+          { title: 'Past', value: 'past' },
+          { title: 'Cancelled', value: 'cancelled' },
         ],
-        layout: 'radio'
+        layout: 'radio',
       },
       initialValue: 'upcoming',
-      validation: (rule) => rule.required()
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
       rows: 4,
-      validation: (rule) => rule.max(500)
+      validation: (rule) => rule.max(500),
     }),
     defineField({
       name: 'flyer',
       title: 'Event Flyer',
       type: 'image',
       options: {
-        hotspot: true
+        hotspot: true,
       },
       fields: [
         {
@@ -90,16 +91,16 @@ export const showType = defineType({
           type: 'string',
           title: 'Alternative text',
           description: 'Important for SEO and accessibility.',
-          validation: (rule) => rule.required()
-        }
-      ]
+          validation: (rule) => rule.required(),
+        },
+      ],
     }),
     defineField({
       name: 'isPublished',
       title: 'Published',
       type: 'boolean',
-      initialValue: false
-    })
+      initialValue: false,
+    }),
   ],
   preview: {
     select: {
@@ -108,38 +109,39 @@ export const showType = defineType({
       city: 'city',
       showDate: 'showDate',
       status: 'status',
-      media: 'flyer'
+      media: 'flyer',
     },
     prepare(selection) {
-      const {title, venue, city, showDate, status, media} = selection
-      const formattedDate = new Date(showDate).toLocaleDateString()
-      const statusEmoji = status === 'upcoming' ? '🎵' : status === 'past' ? '✅' : '❌'
-      
+      const { title, venue, city, showDate, status, media } = selection;
+      const formattedDate = new Date(showDate).toLocaleDateString();
+      const statusEmoji =
+        status === 'upcoming' ? '🎵' : status === 'past' ? '✅' : '❌';
+
       return {
         title: `${statusEmoji} ${title}`,
         subtitle: `${venue}, ${city} - ${formattedDate}`,
-        media
-      }
-    }
+        media,
+      };
+    },
   },
   orderings: [
     {
       title: 'Show Date, Newest First',
       name: 'showDateDesc',
-      by: [{field: 'showDate', direction: 'desc'}]
+      by: [{ field: 'showDate', direction: 'desc' }],
     },
     {
       title: 'Show Date, Oldest First',
       name: 'showDateAsc',
-      by: [{field: 'showDate', direction: 'asc'}]
+      by: [{ field: 'showDate', direction: 'asc' }],
     },
     {
       title: 'Status',
       name: 'statusOrder',
       by: [
-        {field: 'status', direction: 'asc'},
-        {field: 'showDate', direction: 'desc'}
-      ]
-    }
-  ]
-})
+        { field: 'status', direction: 'asc' },
+        { field: 'showDate', direction: 'desc' },
+      ],
+    },
+  ],
+});

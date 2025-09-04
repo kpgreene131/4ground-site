@@ -7,27 +7,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   description="Explore electronic music production, stem visualizers, and interactive audio experiences."
 >
   <!-- Hero Section -->
-  <section class="section" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl); background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary)); position: relative; overflow: hidden;">
+  <section
+    class="section"
+    style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl); background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary)); position: relative; overflow: hidden;"
+  >
     <!-- Gradient overlay inspired by album art -->
-    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgb(109 40 217 / 0.05), rgb(236 72 153 / 0.05)); pointer-events: none;"></div>
-    
+    <div
+      style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgb(109 40 217 / 0.05), rgb(236 72 153 / 0.05)); pointer-events: none;"
+    >
+    </div>
+
     <div class="container" style="position: relative; z-index: 1;">
       <div class="text-center">
-        <h1 class="text-display text-gradient mb-xl">
-          4ground
-        </h1>
-        <p class="text-body-lg mb-xl" style="color: var(--text-secondary); max-width: 600px; margin-left: auto; margin-right: auto;">
-          Electronic music producer crafting immersive soundscapes and interactive audio experiences
+        <h1 class="text-display text-gradient mb-xl">4ground</h1>
+        <p
+          class="text-body-lg mb-xl"
+          style="color: var(--text-secondary); max-width: 600px; margin-left: auto; margin-right: auto;"
+        >
+          Electronic music producer crafting immersive soundscapes and
+          interactive audio experiences
         </p>
-        
-        <div class="flex gap-lg justify-center" style="flex-direction: column; align-items: center;">
+
+        <div
+          class="flex gap-lg justify-center"
+          style="flex-direction: column; align-items: center;"
+        >
           <div class="flex gap-md justify-center" style="flex-wrap: wrap;">
-            <a href="/releases" class="btn btn-primary btn-lg">
-              Listen Now
-            </a>
-            <a href="/labs" class="btn btn-secondary btn-lg">
-              Explore Labs
-            </a>
+            <a href="/releases" class="btn btn-primary btn-lg"> Listen Now </a>
+            <a href="/labs" class="btn btn-secondary btn-lg"> Explore Labs </a>
           </div>
         </div>
       </div>
@@ -39,24 +46,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container">
       <div class="grid grid-cols-3">
         <div class="card text-center">
-          <h3 class="text-h3 mb-lg" style="color: var(--primary);">Latest Releases</h3>
-          <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
+          <h3 class="text-h3 mb-lg" style="color: var(--primary);">
+            Latest Releases
+          </h3>
+          <p
+            style="color: var(--text-secondary); margin-bottom: var(--space-lg);"
+          >
             Discover the newest tracks and explore interactive stem players
           </p>
           <a href="/releases" class="btn btn-accent">Browse Music →</a>
         </div>
-        
+
         <div class="card card-featured text-center">
-          <h3 class="text-h3 mb-lg" style="color: var(--primary);">Audio Labs</h3>
-          <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
+          <h3 class="text-h3 mb-lg" style="color: var(--primary);">
+            Audio Labs
+          </h3>
+          <p
+            style="color: var(--text-secondary); margin-bottom: var(--space-lg);"
+          >
             Interactive visualizers and experimental audio tools
           </p>
           <a href="/labs" class="btn btn-primary">Enter Labs →</a>
         </div>
-        
+
         <div class="card text-center">
-          <h3 class="text-h3 mb-lg" style="color: var(--primary);">Live Shows</h3>
-          <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
+          <h3 class="text-h3 mb-lg" style="color: var(--primary);">
+            Live Shows
+          </h3>
+          <p
+            style="color: var(--text-secondary); margin-bottom: var(--space-lg);"
+          >
             Upcoming performances and event information
           </p>
           <a href="/shows" class="btn btn-accent">View Shows →</a>

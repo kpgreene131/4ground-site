@@ -11,7 +11,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container">
       <div class="text-center mb-xl">
         <h1 class="text-h1 text-gradient mb-lg">Live Shows</h1>
-        <p class="text-body-lg" style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+        <p
+          class="text-body-lg"
+          style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;"
+        >
           Upcoming performances and live electronic music experiences
         </p>
       </div>
@@ -24,16 +27,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div style="display: flex; flex-direction: column; gap: var(--space-xl);">
         <!-- Featured Show -->
         <div class="card card-featured">
-          <div class="flex items-center justify-between" style="flex-wrap: wrap; gap: var(--space-lg);">
+          <div
+            class="flex items-center justify-between"
+            style="flex-wrap: wrap; gap: var(--space-lg);"
+          >
             <div>
-              <h2 class="text-h2 mb-sm" style="color: var(--primary);">Spring Tour 2025</h2>
-              <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">Details coming soon...</p>
-              <div style="color: var(--text-tertiary); font-size: var(--text-small);">
+              <h2 class="text-h2 mb-sm" style="color: var(--primary);">
+                Spring Tour 2025
+              </h2>
+              <p
+                style="color: var(--text-secondary); margin-bottom: var(--space-md);"
+              >
+                Details coming soon...
+              </p>
+              <div
+                style="color: var(--text-tertiary); font-size: var(--text-small);"
+              >
                 <span>TBD • Various Venues</span>
               </div>
             </div>
             <div>
-              <span style="display: inline-flex; align-items: center; padding: var(--space-xs) var(--space-md); border-radius: var(--radius-lg); font-size: var(--text-small); font-weight: 600; background: var(--warning); color: var(--gray-900);">
+              <span
+                style="display: inline-flex; align-items: center; padding: var(--space-xs) var(--space-md); border-radius: var(--radius-lg); font-size: var(--text-small); font-weight: 600; background: var(--warning); color: var(--gray-900);"
+              >
                 Announced Soon
               </span>
             </div>
@@ -42,37 +58,64 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         <!-- Coming Soon Section -->
         <div class="text-center" style="padding: var(--space-3xl) 0;">
-          <div style="color: var(--text-tertiary); margin-bottom: var(--space-lg);">
-            <svg width="64" height="64" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin: 0 auto var(--space-md);">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          <div
+            style="color: var(--text-tertiary); margin-bottom: var(--space-lg);"
+          >
+            <svg
+              width="64"
+              height="64"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              style="margin: 0 auto var(--space-md);"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              ></path>
             </svg>
           </div>
-          <h2 class="text-h2 mb-lg" style="color: var(--text-primary);">More Shows Coming</h2>
-          <p style="color: var(--text-secondary); margin-bottom: var(--space-xl); max-width: 600px; margin-left: auto; margin-right: auto;">
-            Stay tuned for announcements about upcoming live performances, DJ sets, and special events. 
-            Each show features interactive elements and immersive audio experiences.
+          <h2 class="text-h2 mb-lg" style="color: var(--text-primary);">
+            More Shows Coming
+          </h2>
+          <p
+            style="color: var(--text-secondary); margin-bottom: var(--space-xl); max-width: 600px; margin-left: auto; margin-right: auto;"
+          >
+            Stay tuned for announcements about upcoming live performances, DJ
+            sets, and special events. Each show features interactive elements
+            and immersive audio experiences.
           </p>
-          <a href="/contact" class="btn btn-secondary">
-            Get Notified
-          </a>
+          <a href="/contact" class="btn btn-secondary"> Get Notified </a>
         </div>
 
         <!-- Info Cards -->
         <div class="grid grid-cols-2">
           <div class="card">
-            <h3 class="text-h3 mb-sm" style="color: var(--secondary);">Booking Info</h3>
-            <p style="color: var(--text-secondary); margin-bottom: var(--space-md); font-size: var(--text-small);">
-              Interested in booking 4ground for your event? Get in touch for availability and technical requirements.
+            <h3 class="text-h3 mb-sm" style="color: var(--secondary);">
+              Booking Info
+            </h3>
+            <p
+              style="color: var(--text-secondary); margin-bottom: var(--space-md); font-size: var(--text-small);"
+            >
+              Interested in booking 4ground for your event? Get in touch for
+              availability and technical requirements.
             </p>
             <a href="/contact" class="btn btn-accent btn-sm">
               Contact for Booking →
             </a>
           </div>
-          
+
           <div class="card">
-            <h3 class="text-h3 mb-sm" style="color: var(--secondary);">Tech Specs</h3>
-            <p style="color: var(--text-secondary); margin-bottom: var(--space-md); font-size: var(--text-small);">
-              Live performances feature custom audio-visual setups with real-time stem manipulation and interactive visuals.
+            <h3 class="text-h3 mb-sm" style="color: var(--secondary);">
+              Tech Specs
+            </h3>
+            <p
+              style="color: var(--text-secondary); margin-bottom: var(--space-md); font-size: var(--text-small);"
+            >
+              Live performances feature custom audio-visual setups with
+              real-time stem manipulation and interactive visuals.
             </p>
             <a href="/labs" class="btn btn-accent btn-sm">
               Explore the Tech →
